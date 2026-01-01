@@ -1,0 +1,24 @@
+.btn-white-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  transition: transform 150ms ease, box-shadow 200ms ease, background-color 150ms ease;
+  box-shadow: 0 15px 40px -20px rgba(0, 0, 0, 0.35);
+}
+
+.btn-white-dark:hover {
+  transform: translateY(-2px);
+  background: #e2e8f0;
+  color: #0f172a;
+  box-shadow: 0 18px 45px -18px rgba(0, 0, 0, 0.4);
+}
+
+.btn-white-dark:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
