@@ -29,9 +29,9 @@ const bodyClass = [
 ].join(" ");
 
 export const metadata: Metadata = {
-  title: "Eric Onah | WordPress & Headless CMS Developer",
+  title: "Eric Onah | Full-Stack Developer, WordPress & React Specialist",
   description:
-    "Certified WordPress and Headless CMS developer crafting performant sites with custom themes, plugins, and Next.js front-ends.",
+    "Explore the portfolio of Eric Onah, a Full-Stack Developer with 8+ years of experience in React, Next.js, WordPress, Shopify, and custom web applications.",
 };
 
 export default async function RootLayout({

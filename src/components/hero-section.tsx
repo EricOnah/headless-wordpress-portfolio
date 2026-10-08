@@ -9,7 +9,7 @@ export function HeroSection({ content }: { content: HeroContent }) {
           {content.label}
         </p>
         <div className="space-y-3">
-          <h1 id="hero-heading" className="text-4xl font-semibold leading-tight text-white lg:text-5xl">
+          <h1 id="hero-heading" className="text-[2rem] font-semibold leading-tight text-white">
             {content.name}
           </h1>
           <p className="text-lg font-semibold text-emerald-100">
