@@ -27,3 +27,17 @@ git commit -m "Update WordPress backend"
 Review newly added files before committing. Local `.env` files, credentials, WordPress core, `vendor/`, uploads, caches, logs, database dumps, and deployment archives are ignored. The legacy standard WordPress installation directly inside `wordpress/` is also ignored; the active DDEV document root is `wordpress/web`.
 
 Git records source files. Dashboard content, settings, and installed-plugin activation live in the database; media lives in uploads. Back up and restore the database and uploads separately.
+
+## Fresh frontend content
+
+`portfolio-content.php` exposes `/wp-json/portfolio/v1/content` (also available through `/?rest_route=/portfolio/v1/content`). It bundles the existing published portfolio collections into one WordPress HTTP request. Both the endpoint and frontend fetch use `no-store`. React shares the response only within one server render; the next page load fetches WordPress again. Project pagination and custom queries continue to use their original endpoints.
+
+Deploy the backend before the frontend to avoid an extra endpoint probe while the plugin is missing. After these changes have been merged into `master`, run on the hosting server:
+
+```bash
+cd /home/ericonah/domains/cms.ericonah.online
+git pull --ff-only
+bash cms/install-mu-plugins.sh
+```
+
+Then deploy the matching frontend commit to Vercel. No content-cache invalidation or rebuild is needed for subsequent WordPress content edits. An already open page still needs a reload, as before.

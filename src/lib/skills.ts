@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { skills } from "./content";
 
 export type SkillIcon = "cms" | "code" | "server" | "database" | "terminal";
@@ -65,9 +66,7 @@ export function parseSkillPairs(value: string) {
 type WpSkillsEntry = { id: number; skills_data: Record<string, string> };
 
 async function fetchSkillsEntries(base: string, path: string): Promise<WpSkillsEntry[]> {
-  const response = await fetch(`${base}/?rest_route=/wp/v2/${path}`, {
-    cache: "no-store", signal: AbortSignal.timeout(5000),
-  });
+  const response = await fetchPortfolioContent(`${base}/?rest_route=/wp/v2/${path}`);
   if (!response.ok) throw new Error(`Skills request failed: ${response.status}`);
   return response.json();
 }

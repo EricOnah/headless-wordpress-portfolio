@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 
 export const defaultContactContent = {
   "page_label": "Contact",
@@ -24,7 +25,7 @@ export async function getContactPageContent():Promise<ContactPageContent>{
  const base=(process.env.WORDPRESS_API_URL||process.env.NEXT_PUBLIC_WORDPRESS_API_URL||"").replace(/\/$/,"").replace(/\/wp-json$/,"");
  if(!base) return defaultContactContent;
  try{
-  const response=await fetch(base+"/?rest_route=/wp/v2/contact-pages&status=publish&orderby=modified&order=desc&per_page=1",{cache:"no-store",signal:AbortSignal.timeout(5000)});
+  const response=await fetchPortfolioContent(base+"/?rest_route=/wp/v2/contact-pages&status=publish&orderby=modified&order=desc&per_page=1");
   if(!response.ok) throw new Error("Contact page request failed: "+response.status);
   const entries:Array<{contact_data?:Partial<ContactPageContent>}>=await response.json();
   const fields=entries[0]?.contact_data;

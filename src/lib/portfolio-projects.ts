@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { secureWordPressMediaUrl } from "@/lib/wordpress-media";
 
 export type PortfolioProject = {
@@ -296,20 +297,20 @@ export const defaultPortfolioProjects:PortfolioProject[] = [
 ];
 type Entry={id:number;slug:string;project_data:Record<string,string>};
 function safeUrl(value:string) {return /^\/(?!\/)/.test(value)||/^https?:\/\//i.test(value)?value:"";}
-async function entries(base:string,route:string):Promise<Entry[]> {
+async function entries(base:string,route:string,latestOnly=false):Promise<Entry[]> {
  const all:Entry[]=[];
  for(let page=1;;page++) {
-  const response=await fetch(base+"/?rest_route=/wp/v2/"+route+"&per_page=100&page="+page,{cache:"no-store",signal:AbortSignal.timeout(5000)});
+  const response=await fetchPortfolioContent(base+"/?rest_route=/wp/v2/"+route+"&per_page="+(latestOnly?1:100)+"&page="+page);
   if(!response.ok) throw new Error("Projects request failed: "+response.status);
   all.push(...await response.json());
-  if(page>=Number(response.headers.get("X-WP-TotalPages")||1)) return all;
+  if(latestOnly||page>=Number(response.headers.get("X-WP-TotalPages")||1)) return all;
  }
 }
 export async function getPortfolioProjectsData():Promise<{projects:PortfolioProject[];section:ProjectsSectionContent}> {
  const base=(process.env.WORDPRESS_API_URL||process.env.NEXT_PUBLIC_WORDPRESS_API_URL||"").replace(/\/$/,"").replace(/\/wp-json$/,"");
  if(!base) return {projects:defaultPortfolioProjects,section:defaultProjectsSection};
  try {
-  const [projects,sections]=await Promise.all([entries(base,"portfolio-projects&orderby=menu_order&order=asc"),entries(base,"project-sections&orderby=modified&order=desc")]);
+  const [projects,sections]=await Promise.all([entries(base,"portfolio-projects&orderby=menu_order&order=asc"),entries(base,"project-sections&orderby=modified&order=desc",true)]);
   const section={...defaultProjectsSection};
   const fields=sections[0]?.project_data;
   if(fields) for(const key of Object.keys(section) as Array<keyof ProjectsSectionContent>) {

@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { secureWordPressMediaUrl } from "@/lib/wordpress-media";
 import { person, summary } from "@/lib/content";
 
@@ -32,9 +33,8 @@ export async function getProfessionalProfile(): Promise<ProfessionalProfile> {
   if (!base) return fallback;
 
   try {
-    const response = await fetch(
+    const response = await fetchPortfolioContent(
       `${base}/?rest_route=/wp/v2/professional-profiles&status=publish&orderby=modified&order=desc&per_page=1`,
-      { cache: "no-store", signal: AbortSignal.timeout(5000) },
     );
     if (!response.ok) throw new Error(`Professional profile request failed: ${response.status}`);
     const entries: Array<{ profile?: Partial<ProfessionalProfile> }> = await response.json();
