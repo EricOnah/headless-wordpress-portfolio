@@ -29,6 +29,12 @@ A Next.js + React portfolio wired for headless WordPress. It includes a Composer
    ```
    The build script uses Next.js's supported Webpack option. Plus Jakarta Sans and Space Grotesk are bundled locally in `public/fonts/` (Fontsource variable packages, version 5.3.0, with their OFL licenses), so builds do not depend on Google Fonts requests. TypeScript checks remain enabled.
 
+### Vercel deployment
+
+The root `vercel.json` explicitly deploys the portfolio as the `app` service and routes all requests to it, including Next.js API routes and static assets. The unused `nextjs_starter/` reference app is not a deployment service. WordPress remains separately hosted at `https://cms.ericonah.online`.
+
+Import this repository with its root directory set to the repository root and production branch set to `develop`. Add `WORDPRESS_API_URL=https://cms.ericonah.online` and the contact form's SMTP environment variables in Vercel (see `.env.example`). The service installs with `npm ci` and builds with `npm run build`.
+
 ### How WordPress data is used
 - `src/lib/wordpress.ts` fetches posts from `wp-json/wp/v2/posts?status=publish&_embed=1` and normalizes title, excerpt, content, featured media, and tags.
 - Projects use the dedicated portfolio_project custom post type through src/lib/portfolio-projects.ts. CV-based fallback projects are used if the CMS is unavailable or no API URL is configured.
