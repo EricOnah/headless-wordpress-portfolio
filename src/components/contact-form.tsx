@@ -51,7 +51,9 @@ export function ContactForm() {
 
   return (
     <form
-      className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.9)]"
+      id="contact-form"
+      className="contact-form space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.9)]"
+      aria-label="Send a message"
       onSubmit={handleSubmit}
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -62,6 +64,7 @@ export function ContactForm() {
             placeholder="Your name"
             required
             name="name"
+            autoComplete="name"
             type="text"
           />
         </label>
@@ -72,15 +75,16 @@ export function ContactForm() {
             placeholder="you@example.com"
             required
             name="email"
+            autoComplete="email"
             type="email"
           />
         </label>
       </div>
 
-      <label className="flex flex-col gap-2 text-sm text-slate-200/90">
-        Project type
-        <ProjectTypeSelect />
-      </label>
+      <div className="flex flex-col gap-2 text-sm text-slate-200/90">
+        <label id="project-type-label" htmlFor="project-type">Project type</label>
+        <ProjectTypeSelect id="project-type" labelledBy="project-type-label" />
+      </div>
 
       <label className="flex flex-col gap-2 text-sm text-slate-200/90">
         Project details

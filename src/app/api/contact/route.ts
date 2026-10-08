@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const CONTACT_TO = process.env.CONTACT_TO ?? "ericdavid4u@gmail.com";
 
@@ -9,7 +10,7 @@ function buildTransport() {
   const pass = process.env.SMTP_PASS;
 
   if (host && port && user && pass) {
-    const options = {
+    const options: SMTPTransport.Options = {
       host,
       port,
       secure: port === 465,
@@ -18,8 +19,8 @@ function buildTransport() {
       greetingTimeout: 8_000,
       socketTimeout: 12_000,
       tls: { minVersion: "TLSv1.2" },
-      logger: true,
-      debug: true,
+      logger: false,
+      debug: false,
     };
     return {
       transport: nodemailer.createTransport(options),
@@ -65,7 +66,7 @@ export async function POST(request: Request) {
       });
       console.log("[contact form] email sent");
     } else {
-      console.warn("[contact form] SMTP missing, logging instead", { meta, name, email, projectType, details });
+      console.warn("[contact form] SMTP missing", meta);
       return new Response(JSON.stringify({ ok: false, error: "SMTP not configured", meta }), {
         status: 500,
         headers: { "Content-Type": "application/json" },

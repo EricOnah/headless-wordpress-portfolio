@@ -207,7 +207,7 @@ function normalizeProject(post: WpPost): Project {
     tagGroups
       .flatMap((group) => group)
       .map((term) => term.name)
-      .filter(Boolean) || [];
+      .filter((name): name is string => typeof name === "string" && name.length > 0) || [];
   const categories =
     tagGroups
       .flatMap((group) => group)
@@ -309,7 +309,7 @@ async function fetchFromGraphQL(limit: number): Promise<Project[]> {
 
   return nodes.map((node) => {
     const tags =
-      node.tags?.nodes?.map((tag) => tag?.name).filter(Boolean) ?? [];
+      node.tags?.nodes?.map((tag) => tag?.name).filter((name): name is string => typeof name === "string" && name.length > 0) ?? [];
 
     return {
       id: node.databaseId,

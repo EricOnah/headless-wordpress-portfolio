@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useMemo, useState } from "react";
@@ -23,10 +22,11 @@ export function ProjectsGrid({ projects, hrefBase = "/projects" }: ProjectsGridP
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Filter projects by technology" className="flex flex-wrap gap-2">
         {tags.map((tag) => (
           <button
             key={tag}
+            aria-pressed={activeTag === tag}
             onClick={() => setActiveTag(tag)}
             className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
               activeTag === tag

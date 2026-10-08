@@ -30,8 +30,8 @@ export function ProjectCard({
       href={`${hrefBase}/${project.slug}`}
       className="group relative block h-full transition-transform duration-300 hover:-translate-y-1"
     >
-      <div
-        className={`relative h-full overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)] ${featured ? "p-6 lg:p-8" : "p-5"}`}
+      <article
+        className={`project-card relative h-full overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)] ${featured ? "p-6 lg:p-8" : "p-5"}`}
       >
         <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-emerald-400 via-cyan-300 to-indigo-400" />
 
@@ -41,7 +41,7 @@ export function ProjectCard({
               <span className="rounded-full bg-emerald-900/40 px-3 py-1 ring-1 ring-emerald-300/20">
                 Headless
               </span>
-              <span className="text-slate-200/80">{formatDate(project.date)}</span>
+              <time dateTime={project.date} className="text-slate-200/80">{formatDate(project.date)}</time>
             </div>
 
             <h3 className="text-2xl font-semibold leading-tight text-white transition-colors duration-200 group-hover:text-emerald-200">
@@ -80,7 +80,7 @@ export function ProjectCard({
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

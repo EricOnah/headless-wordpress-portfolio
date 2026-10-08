@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Project, getPostBySlug, getWordPressPosts } from "@/lib/wordpress";
+import { getPublishedArticleBySlug } from "@/lib/wordpress-posts";
 
 export const revalidate = 300;
 
@@ -14,7 +14,7 @@ function formatDate(value?: string) {
   });
 }
 
-type PageParams = { slug: string } | Promise<{ slug: string }>;
+type PageParams = Promise<{ slug: string }>;
 
 async function resolveParams(params: PageParams) {
   return await Promise.resolve(params);
@@ -22,7 +22,7 @@ async function resolveParams(params: PageParams) {
 
 export default async function PostDetailPage({ params }: { params: PageParams }) {
   const { slug } = await resolveParams(params);
-  const post = await getPostBySlug(slug);
+  const post = await getPublishedArticleBySlug(slug);
 
   if (!post) {
     notFound();
@@ -30,12 +30,13 @@ export default async function PostDetailPage({ params }: { params: PageParams })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-950 to-black text-slate-50">
-      <div className="mx-auto max-w-4xl px-6 py-10 space-y-8">
-        <div className="flex items-center justify-between gap-4">
+      <main id="main-content" tabIndex={-1} className="post-detail-page mx-auto max-w-4xl px-6 py-10 space-y-8">
+        <article id="post-article" aria-labelledby="article-heading" className="post-article space-y-8">
+        <header id="post-header" className="post-header flex items-center justify-between gap-4">
           <div className="space-y-1">
             <p className="text-xs uppercase tracking-[0.3em] text-emerald-200">Article</p>
-            <h1 className="text-3xl font-semibold text-white">{post.title}</h1>
-            <p className="text-sm text-slate-200/80">Published {formatDate(post.date)}</p>
+            <h1 id="article-heading" className="text-3xl font-semibold text-white">{post.title}</h1>
+            <p className="text-sm text-slate-200/80">Published <time dateTime={post.date}>{formatDate(post.date)}</time></p>
             {post.categories && post.categories.length ? (
               <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100">
                 {post.categories.map((cat) => (
@@ -57,7 +58,7 @@ export default async function PostDetailPage({ params }: { params: PageParams })
             <span aria-hidden>←</span>
             Back
           </Link>
-        </div>
+        </header>
 
         <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.9)] backdrop-blur">
           {post.featuredImage ? (
@@ -74,19 +75,21 @@ export default async function PostDetailPage({ params }: { params: PageParams })
           <div className="space-y-6 p-8">
             <p className="text-lg leading-relaxed text-slate-100">{post.excerpt}</p>
             <div
-              className="rich-text rounded-2xl bg-white p-6 text-base shadow-inner shadow-slate-200/60"
+              className="post-body rich-text rounded-2xl bg-white p-6 text-base shadow-inner shadow-slate-200/60"
               dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
             />
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-slate-100 shadow-[0_20px_60px_-50px_rgba(0,0,0,0.9)]">
+        </article>
+
+        <aside id="next-steps" aria-labelledby="article-next-steps" className="next-steps rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-slate-100 shadow-[0_20px_60px_-50px_rgba(0,0,0,0.9)]">
           <p className="text-xs uppercase tracking-[0.3em] text-emerald-200">
             Next steps
           </p>
-          <p className="mt-2 text-lg font-semibold text-white">
+          <h2 id="article-next-steps" className="mt-2 text-lg font-semibold text-white">
             Want help implementing these ideas?
-          </p>
+          </h2>
           <p className="mt-2 text-slate-200/85">
             I ship secure, performant WordPress, headless, and Next.js builds with the right mix of CMS workflows and front-end optimizations.
           </p>
@@ -102,13 +105,8 @@ export default async function PostDetailPage({ params }: { params: PageParams })
               View portfolio
             </Link>
           </div>
-        </div>
-      </div>
+        </aside>
+      </main>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const posts = await getWordPressPosts(10, false);
-  return posts.map((post: Project) => ({ slug: post.slug }));
 }

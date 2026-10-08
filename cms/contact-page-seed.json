@@ -1,0 +1,20 @@
+{
+  "page_label": "Contact",
+  "heading": "Let’s build your next WordPress or headless experience",
+  "introduction": "Whether you need a secure WordPress site, a custom plugin, or a headless React/Next.js front-end, I can help scope, ship, and optimize it.",
+  "direct_lines_label": "Direct lines",
+  "email_label": "Email",
+  "email": "ericdavid4u@gmail.com",
+  "phone_label": "Phone / WhatsApp",
+  "phone": "+2348108769293",
+  "whatsapp_url": "https://wa.link/eptfzc",
+  "whatsapp_label": "Chat on WhatsApp (opens in a new tab)",
+  "linkedin_label": "LinkedIn",
+  "linkedin_action": "Connect",
+  "linkedin_url": "https://linkedin.com/in/eric-onah/",
+  "github_label": "GitHub",
+  "github_action": "View code",
+  "github_url": "https://github.com/EricOnah",
+  "focus_heading": "Projects I focus on:",
+  "focus_items": "Custom WordPress themes & plugins\nHeadless WordPress with Next.js or React\nAPI integrations, payments, and workflows\nPerformance, security, and SEO improvements"
+}

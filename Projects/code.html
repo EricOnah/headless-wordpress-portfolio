@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed": "#001e2c", "tertiary-fixed-dim": "#7bd0ff", "primary-container": "#10b981", "background": "#0e1321", "surface-bright": "#343948", "inverse-on-surface": "#2b303f", "on-surface-variant": "#bbcabf", "inverse-surface": "#dee2f6", "primary": "#4edea3", "on-tertiary": "#00354a", "on-surface": "#dee2f6", "on-primary-fixed-variant": "#005236", "on-error-container": "#ffdad6", "outline-variant": "#3c4a42", "on-primary": "#003824", "primary-fixed": "#6ffbbe", "tertiary": "#7bd0ff", "surface-dim": "#0e1321", "on-primary-container": "#00422b", "on-tertiary-container": "#003e55", "primary-fixed-dim": "#4edea3", "inverse-primary": "#006c49", "surface-container-lowest": "#090e1c", "surface-container-highest": "#303444", "on-secondary-fixed": "#001f26", "error": "#ffb4ab", "secondary": "#4cd7f6", "secondary-fixed-dim": "#4cd7f6", "on-secondary": "#003640", "surface-tint": "#4edea3", "surface": "#0e1321", "surface-container": "#1a1f2e", "surface-container-high": "#252a39", "secondary-container": "#03b5d3", "surface-variant": "#303444", "on-primary-fixed": "#002113", "on-secondary-container": "#00424e", "on-tertiary-fixed-variant": "#004c69", "secondary-fixed": "#acedff", "on-background": "#dee2f6", "surface-container-low": "#161b2a", "error-container": "#93000a", "tertiary-container": "#19aee8", "tertiary-fixed": "#c4e7ff", "outline": "#86948a", "on-error": "#690005", "on-secondary-fixed-variant": "#004e5c" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "gutter-mobile": "0.75rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin": "2rem", "gutter": "1.25rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-xl": "2.5rem" }, "fontFamily": { "headline-md": [ "Space Grotesk" ], "label-xs": [ "JetBrains Mono" ], "display-hero-mobile": [ "Space Grotesk" ], "body-md": [ "Geist" ], "label-tag": [ "JetBrains Mono" ], "headline-lg-mobile": [ "Space Grotesk" ], "body-lg": [ "Geist" ], "label-eyebrow": [ "JetBrains Mono" ], "body-sm": [ "Geist" ], "headline-lg": [ "Space Grotesk" ], "display-hero": [ "Space Grotesk" ] }, "fontSize": { "headline-md": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "label-xs": [ "11px", { "lineHeight": "14px", "fontWeight": "500" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "label-tag": [ "13px", { "lineHeight": "16px", "fontWeight": "500" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "label-eyebrow": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin h-20 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center justify-center w-10 h-10 rounded-lg bg-surface-container-high text-primary font-headline-md text-headline-md tracking-tight transition-transform hover:scale-105" data-path="overview" href="#">DV</a><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Available for projects</span></div></div><nav class="hidden md:flex items-center gap-1 p-1 bg-surface-container-low rounded-full" data-active-classes="bg-surface-container-high text-primary font-medium rounded-full"><a class="px-space-md py-space-xs rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="overview" href="#">Overview</a><a class="px-space-md py-space-xs rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="projects" href="#">Projects</a><a class="px-space-md py-space-xs rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="skills" href="#">Skills</a><a class="px-space-md py-space-xs rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="experience" href="#">Experience</a><a class="px-space-md py-space-xs rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="contact" href="#">Contact</a></nav><div class="flex items-center gap-space-sm"><a class="hidden sm:inline-flex items-center justify-center px-space-md py-space-xs rounded-full bg-primary-container text-on-primary-container font-body-sm text-body-sm font-semibold transition-all hover:bg-primary hover:text-on-primary shadow-[0_0_16px_rgba(16,185,129,0.25)]" data-path="contact" href="#">Get in Touch</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 flex-1 bg-background max-w-[1200px] mx-auto px-margin-mobile md:px-margin"><div class="flex flex-col w-full">
+<!-- Subtle ambient top glow -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
+<!-- Section Header Block -->
+<section class="relative pt-6 pb-10 md:pb-14 flex flex-col gap-6">
+<!-- Breadcrumb / Overline & Counter -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-eyebrow text-label-eyebrow text-primary tracking-widest uppercase">WORK &amp; CASE STUDIES // PRODUCTION ARCHITECTURE</span>
+</div>
+<div class="hidden sm:flex items-center gap-3 font-label-xs text-label-xs text-on-surface-variant">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-mono font-medium">4 PRODUCTION RELEASES</span>
+<span class="text-outline-variant">•</span>
+<span class="text-outline">ARCHIVE 2024–2025</span>
+</div>
+</div>
+<!-- Main Headline & Subtitle -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="max-w-3xl flex flex-col gap-3">
+<h1 class="font-headline-lg text-headline-lg md:text-[44px] md:leading-[52px] tracking-tight text-on-surface font-bold">
+            Featured WordPress &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary">headless builds</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+            A curated showcase of high-throughput decoupled applications, headless commerce systems, and bespoke CMS architectures engineered for zero-downtime scale.
+          </p>
+</div>
+<!-- Quick Metrics Glass Cluster -->
+<div class="grid grid-cols-3 gap-2 p-2 rounded-xl bg-surface-container-low shrink-0 shadow-sm">
+<div class="px-3.5 py-2 rounded-lg bg-surface-container flex flex-col items-start">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider font-mono">Uptime</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">99.98%</span>
+</div>
+<div class="px-3.5 py-2 rounded-lg bg-surface-container flex flex-col items-start">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider font-mono">Avg TTFB</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">&lt;380ms</span>
+</div>
+<div class="px-3.5 py-2 rounded-lg bg-surface-container flex flex-col items-start">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider font-mono">Arch</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">100% Jam</span>
+</div>
+</div>
+</div>
+<!-- Interactive Filter Nav Chips -->
+<div class="flex items-center justify-between gap-4 pt-2 overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-2" id="filter-container">
+<button class="project-filter active-filter px-4 py-2 rounded-full font-label-tag text-label-tag font-semibold transition-all bg-primary-container text-on-primary-container shadow-[0_0_12px_rgba(16,185,129,0.25)]" data-filter="all">
+            All Projects (4)
+          </button>
+<button class="project-filter px-4 py-2 rounded-full font-label-tag text-label-tag text-on-surface-variant hover:text-on-surface bg-surface-container-low hover:bg-surface-container transition-all" data-filter="headless">
+            Headless &amp; Jamstack (4)
+          </button>
+<button class="project-filter px-4 py-2 rounded-full font-label-tag text-label-tag text-on-surface-variant hover:text-on-surface bg-surface-container-low hover:bg-surface-container transition-all" data-filter="ecommerce">
+            E-Commerce
+          </button>
+<button class="project-filter px-4 py-2 rounded-full font-label-tag text-label-tag text-on-surface-variant hover:text-on-surface bg-surface-container-low hover:bg-surface-container transition-all" data-filter="realestate">
+            Architecture &amp; Real Estate
+          </button>
+<button class="project-filter px-4 py-2 rounded-full font-label-tag text-label-tag text-on-surface-variant hover:text-on-surface bg-surface-container-low hover:bg-surface-container transition-all" data-filter="sports">
+            Sports &amp; Live Data
+          </button>
+</div>
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant text-label-xs font-mono shrink-0">
+<span class="material-symbols-outlined text-base text-primary">terminal</span>
+<span>QUERY: filter_mode = production</span>
+</div>
+</div>
+</section>
+<!-- Project Matrix: 2x2 High-Impact Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-16">
+<!-- CARD 1: Flash-Sale Ecommerce -->
+<article class="project-card group relative flex flex-col justify-between rounded-xl bg-surface-container-low p-6 md:p-8 transition-all duration-300 hover:bg-surface-container hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] overflow-hidden" data-category="headless ecommerce">
+<!-- Ambient hover gradient highlight -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="relative z-10 flex flex-col-reverse md:flex-row items-stretch justify-between gap-6">
+<!-- Left Column: Context, Title, Description, Tags -->
+<div class="flex-1 flex flex-col justify-between gap-5 min-w-0">
+<div>
+<!-- Meta Badge & Date -->
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-xs text-label-xs font-semibold uppercase tracking-wider">
+                  HEADLESS
+                </span>
+<span class="font-label-xs text-label-xs text-outline font-mono">OCT 2024</span>
+</div>
+<!-- Title -->
+<h2 class="font-headline-md text-headline-md md:text-[22px] md:leading-[30px] font-bold text-on-surface group-hover:text-primary transition-colors">
+                Flash-sale ecommerce rebuild for a clearance retailer
+              </h2>
+<!-- Description -->
+<p class="mt-3 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Built a conversion-focused storefront for a national clearance brand with sale scheduling, resilient checkout, and real-time inventory synchronization.
+              </p>
+</div>
+<!-- Architecture KPI & Tags -->
+<div class="flex flex-col gap-4 mt-2">
+<div class="flex items-center gap-2 text-label-xs font-mono text-outline">
+<span class="material-symbols-outlined text-sm text-primary">bolt</span>
+<span>Sub-340ms TTFB under 45k concurrent checkouts</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">ECOMMERCE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">HEADLESS WORDPRESS</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">STRIPE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">PERFORMANCE</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Mockup Showcase -->
+<div class="relative w-full md:w-52 md:shrink-0 aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high group-hover:scale-[1.02] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist high-end studio product photograph of a modern gray ceramic smartwatch with silicone strap against a soft muted sage background, ultra-sharp industrial design aesthetic, crisp architectural studio lighting with soft shadows matching dark slate tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn0---cDQ8C5RUbmOGdRvxmrrbLt6j0vYAkBr6PVS5ULspf0jlql3haicBuusBhMv_ip0juPkeWuTU5lx0ntzVSg0NsidNalEbvs5BQJTNZhHHSQPubhGSDKWJmJpm6FCylN5ozohMkIBNxLvCO7hnuPgRkCGyGxL-NlPRrhvIB8v4IPqPD4jxt4qEESvCVpUtxkihKSlbefpbtJa_x3gHWJjnfNn-p1c9Qukxr70"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<!-- Quick View Action Button -->
+<a class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-md text-on-surface text-label-xs font-label-xs font-mono hover:bg-primary hover:text-on-primary transition-colors shadow-lg" href="#">
+<span>VIEW</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- CARD 2: Property & Architecture Portfolio -->
+<article class="project-card group relative flex flex-col justify-between rounded-xl bg-surface-container-low p-6 md:p-8 transition-all duration-300 hover:bg-surface-container hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] overflow-hidden" data-category="headless realestate">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="relative z-10 flex flex-col-reverse md:flex-row items-stretch justify-between gap-6">
+<div class="flex-1 flex flex-col justify-between gap-5 min-w-0">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-xs text-label-xs font-semibold uppercase tracking-wider">
+                  HEADLESS
+                </span>
+<span class="font-label-xs text-label-xs text-outline font-mono">JUL 2024</span>
+</div>
+<h2 class="font-headline-md text-headline-md md:text-[22px] md:leading-[30px] font-bold text-on-surface group-hover:text-secondary transition-colors">
+                Property and architecture portfolio site
+              </h2>
+<p class="mt-3 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Showcased a luxury architecture and real estate studio with property highlights, credentials, and lead capture built directly into the decoupled CMS.
+              </p>
+</div>
+<div class="flex flex-col gap-4 mt-2">
+<div class="flex items-center gap-2 text-label-xs font-mono text-outline">
+<span class="material-symbols-outlined text-sm text-secondary">apartment</span>
+<span>ACF Flexible Content + Global Edge CDN distribution</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">REAL ESTATE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">ARCHITECTURE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">LEAD CAPTURE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">WORDPRESS CMS</span>
+</div>
+</div>
+</div>
+<div class="relative w-full md:w-52 md:shrink-0 aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high group-hover:scale-[1.02] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="A stylish, luminous architectural interior photography of a loft apartment and coffee boutique with double-height ceiling, warm cedar timber finishes, exposed brick, disco ball accent, natural daylight, sophisticated Scandinavian atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoQFWlFoh5ukZLPdC6lNTVQ6ySFbRO4PGrPx6KPh1Jq9_kyk9tjrq6S1KdS5NosUI8Mr4jemAMzFTJQWu73gkIRv7ToekWJUBWqldF0jD7J5qUdGT2ygC5_gD-R68wXiLE-vY0LyQV8MoribbA7KGzuj0CIXW1G3IHj1bOzLZN_GOI7kRbbMdqXZOmhfg6e9xvOrN3QG8-o9aj6mIyqhvK8O8xVIQauEffhIJVm2g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<a class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-md text-on-surface text-label-xs font-label-xs font-mono hover:bg-secondary hover:text-on-secondary transition-colors shadow-lg" href="#">
+<span>VIEW</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- CARD 3: Top-Flight Football Club -->
+<article class="project-card group relative flex flex-col justify-between rounded-xl bg-surface-container-low p-6 md:p-8 transition-all duration-300 hover:bg-surface-container hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] overflow-hidden" data-category="headless sports">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="relative z-10 flex flex-col-reverse md:flex-row items-stretch justify-between gap-6">
+<div class="flex-1 flex flex-col justify-between gap-5 min-w-0">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-xs text-label-xs font-semibold uppercase tracking-wider">
+                  HEADLESS
+                </span>
+<span class="font-label-xs text-label-xs text-outline font-mono">MAY 2024</span>
+</div>
+<h2 class="font-headline-md text-headline-md md:text-[22px] md:leading-[30px] font-bold text-on-surface group-hover:text-primary transition-colors">
+                Top-flight football club digital home
+              </h2>
+<p class="mt-3 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Built a fast match-day hub with live scores, fixtures, ticketing, and membership flows tailored for global supporters across all device sizes.
+              </p>
+</div>
+<div class="flex flex-col gap-4 mt-2">
+<div class="flex items-center gap-2 text-label-xs font-mono text-outline">
+<span class="material-symbols-outlined text-sm text-primary">sensors</span>
+<span>WPGraphQL + Redis cache with live WebSocket match push</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">SPORTS</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">LIVE DATA</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">TICKETING</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">LOCALIZATION</span>
+</div>
+</div>
+</div>
+<div class="relative w-full md:w-52 md:shrink-0 aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high group-hover:scale-[1.02] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Dynamic dramatic close-up sports photo of a sprinter at the starting blocks on a vibrant red athletic running track, holding a relay baton with focus and power, intense high contrast stadium light, moody energetic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhsRHobxh4gHDar3JQ2F4nLi0QAPESvuSTkS1dfcWBT54_XZYnm1XbzHuM1SG2gtQzZEYuRUhVC5fgIHv5tKhsCPih3E6VKDmTk4QBpO7KGSDP25kEsR4_th7ByyQMZykvPaItnGx4PTeuC09DmQt6VzkknV6hhrKSkub0c37CF3I0t8P-6eivJJuKPwvIHKdqgq6Qwg-C6F5wQ4GRu2d3tLCmhDK9TdCtuWOrhVQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<a class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-md text-on-surface text-label-xs font-label-xs font-mono hover:bg-primary hover:text-on-primary transition-colors shadow-lg" href="#">
+<span>VIEW</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- CARD 4: Corporate Site Interior Design Group -->
+<article class="project-card group relative flex flex-col justify-between rounded-xl bg-surface-container-low p-6 md:p-8 transition-all duration-300 hover:bg-surface-container hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] overflow-hidden" data-category="headless design">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="relative z-10 flex flex-col-reverse md:flex-row items-stretch justify-between gap-6">
+<div class="flex-1 flex flex-col justify-between gap-5 min-w-0">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-xs text-label-xs font-semibold uppercase tracking-wider">
+                  HEADLESS
+                </span>
+<span class="font-label-xs text-label-xs text-outline font-mono">MAR 2024</span>
+</div>
+<h2 class="font-headline-md text-headline-md md:text-[22px] md:leading-[30px] font-bold text-on-surface group-hover:text-secondary transition-colors">
+                Corporate site for an interior design group
+              </h2>
+<p class="mt-3 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Elevated a boutique interior design firm with moodboard-inspired case studies, service breakdowns, and polished lead forms running on Next.js.
+              </p>
+</div>
+<div class="flex flex-col gap-4 mt-2">
+<div class="flex items-center gap-2 text-label-xs font-mono text-outline">
+<span class="material-symbols-outlined text-sm text-secondary">speed</span>
+<span>Next.js Static ISR with 0.00 CLS layout stability score</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">CORPORATE SITE</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">DESIGN SYSTEM</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">SEO</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-highest text-on-surface font-label-xs text-label-xs font-mono uppercase tracking-wide">NEXT.JS</span>
+</div>
+</div>
+</div>
+<div class="relative w-full md:w-52 md:shrink-0 aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-high group-hover:scale-[1.02] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Macro perspective photograph of a sleek premium smartphone screen reflecting colorful dreamy neon bokeh orbs in a dim architectural interior, deep violet and cyan reflections on polished dark glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYrsPjRBf5T3hMkFSRPrb-9j6P-yx68YZBhU2yDShBkRgQdoPXKP3X-HIC0goB-DYJi665vdgEw-Dht92e9IrAwmTeq2pnxo21Lo2aor0Cv1pCto1PxXaO23qCvad5m0UTB-SrimsttR_xOihazBJEkwVKAW1Vff7PjXYa1LQd_G_v_iqzmpBZ1lj5kyY3PLOat6POAEc37kKrzTYKyLG90ETaBDROJ4aeSB_YnXQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<a class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-md text-on-surface text-label-xs font-label-xs font-mono hover:bg-secondary hover:text-on-secondary transition-colors shadow-lg" href="#">
+<span>VIEW</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+</section>
+<!-- Architecture Principles in Every Build: Bento Split Strip -->
+<section class="pb-16 flex flex-col gap-8">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<span class="font-label-eyebrow text-label-eyebrow text-secondary uppercase tracking-widest block mb-2 font-mono">// CORE SPECIFICATIONS</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Architecture Principles in Every Build</h3>
+</div>
+<span class="font-label-xs text-label-xs font-mono text-outline">ENGINEERED FOR PRODUCTION ZERO-DOWNTIME</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Principle 1 -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between gap-4 relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">rocket_launch</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold mb-2">Decoupled Performance</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Splitting the content API from the presentation layer eliminates legacy PHP render bottleneck, ensuring instant sub-400ms time-to-first-byte anywhere globally.
+            </p>
+</div>
+<div class="font-label-xs text-label-xs font-mono text-primary flex items-center gap-1.5 pt-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Edge Caching &amp; Incremental Static Revalidation</span>
+</div>
+</div>
+<!-- Principle 2 -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between gap-4 relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">view_quilt</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold mb-2">Robust Content Modeling</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Tailored custom fields, structured GraphQL schemas, and Gutenberg/ACF block systems give marketing teams total editorial freedom without risking frontend breaking changes.
+            </p>
+</div>
+<div class="font-label-xs text-label-xs font-mono text-secondary flex items-center gap-1.5 pt-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Strict TypeScript Schema Validation</span>
+</div>
+</div>
+<!-- Principle 3 -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between gap-4 relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">shield_lock</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold mb-2">Hardened Attack Surface</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              The WordPress admin and database live in private VPC networks with read-only API access tokens, practically eliminating common attack vectors and malicious probing.
+            </p>
+</div>
+<div class="font-label-xs text-label-xs font-mono text-tertiary flex items-center gap-1.5 pt-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span>Zero Public WP-Admin Vulnerability</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Conversion Banner -->
+<section class="mb-12 rounded-2xl bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container-low p-8 md:p-12 relative overflow-hidden shadow-2xl">
+<!-- Decorative background wave / glow -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-primary/10 blur-[100px] pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+<div class="flex flex-col gap-3 max-w-2xl">
+<div class="inline-flex items-center gap-2 font-label-xs text-label-xs font-mono text-primary uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Ready for High-Throughput Decoupled Delivery</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg md:text-[34px] md:leading-[42px] text-on-surface font-bold">
+            Have a complex WordPress or headless build in mind?
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            From clearance flash-sales requiring bulletproof checkout durability to bespoke multi-brand publishing platforms, let's architect a solution that never throttles.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 shrink-0 w-full sm:w-auto">
+<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-primary-container text-on-primary-container font-body-md text-body-md font-semibold hover:bg-primary hover:text-on-primary transition-all shadow-[0_0_24px_rgba(16,185,129,0.3)]" href="#">
+<span>Schedule Discovery Call</span>
+<span class="material-symbols-outlined ml-2 text-xl">calendar_today</span>
+</a>
+<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-surface-container-lowest text-on-surface hover:text-primary hover:bg-surface-container-high transition-colors font-body-md text-body-md font-medium" href="#">
+<span>Explore Architecture Specs</span>
+<span class="material-symbols-outlined ml-2 text-xl">menu_book</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+<!-- Interactive Filter Logic -->
+<script>
+    (function() {
+      const filterBtns = document.querySelectorAll('.project-filter');
+      const cards = document.querySelectorAll('.project-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-primary-container', 'text-on-primary-container', 'shadow-[0_0_12px_rgba(16,185,129,0.25)]', 'font-semibold');
+            b.classList.add('text-on-surface-variant', 'bg-surface-container-low');
+          });
+
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'shadow-[0_0_12px_rgba(16,185,129,0.25)]', 'font-semibold');
+          btn.classList.remove('text-on-surface-variant', 'bg-surface-container-low');
+
+          const filterVal = btn.getAttribute('data-filter');
+
+          cards.forEach(card => {
+            if (filterVal === 'all') {
+              card.style.display = 'flex';
+            } else {
+              const categories = card.getAttribute('data-category') || '';
+              if (categories.includes(filterVal)) {
+                card.style.display = 'flex';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest mt-space-xl"><div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col items-center md:items-start gap-1"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md text-on-surface">DV</span><span class="font-label-xs text-label-xs text-on-surface-variant font-mono">// Principal Staff Engineer</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Engineering fault-tolerant distributed architectures and design systems.</p></div><div class="flex items-center gap-space-lg text-on-surface-variant font-body-sm text-body-sm"><a class="hover:text-primary transition-colors" data-path="overview" href="#">Overview</a><a class="hover:text-primary transition-colors" data-path="projects" href="#">Projects</a><a class="hover:text-primary transition-colors" data-path="skills" href="#">Skills</a><a class="hover:text-primary transition-colors" data-path="contact" href="#">Contact</a></div><div class="font-label-xs text-label-xs text-outline">© 2025 DV. All rights reserved.</div></div></footer></body></html>
