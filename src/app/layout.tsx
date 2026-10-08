@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import "./custom.css";
 import { Navbar } from "@/components/navbar";
+import { getProfilePicture } from "@/lib/profile-picture";
 import { Footer } from "@/components/footer";
 
 const sans = Plus_Jakarta_Sans({
@@ -33,15 +34,18 @@ export const metadata: Metadata = {
     "Certified WordPress and Headless CMS developer crafting performant sites with custom themes, plugins, and Next.js front-ends.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profilePicture = await getProfilePicture();
+
   return (
     <html lang="en">
       <body className={bodyClass}>
-        <Navbar />
+        <a href="#main-content" className="skip-link">Skip to main content</a>
+        <Navbar profilePicture={profilePicture} />
         {children}
         <Footer />
       </body>

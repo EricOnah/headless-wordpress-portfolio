@@ -95,7 +95,11 @@ a:hover {
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker-move 26s linear infinite;
+  animation: ticker-move 52s linear infinite;
+}
+
+.motion-ticker:hover .ticker-track {
+  animation-play-state: paused;
 }
 
 .animate-fade {
@@ -162,5 +166,89 @@ a:hover {
   50% {
     opacity: 1;
     transform: translateX(2px);
+  }
+}
+
+/* Keep the keyboard shortcut hidden until focused, above the sticky navigation. */
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-radius: .5rem;
+  background: #ecfdf5;
+  color: #020617;
+  font-weight: 600;
+}
+.skip-link:focus-visible {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: .75rem 1rem;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+}
+
+/* The third copy supports mobile swiping in either direction. */
+.ticker-mobile-copy {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .motion-ticker .ticker-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-block: 4px;
+  }
+
+  .motion-ticker .ticker-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .motion-ticker .ticker-track {
+    animation: none;
+    transform: none;
+  }
+
+  .motion-ticker .ticker-track > li {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .motion-ticker .ticker-mobile-copy {
+    display: flex;
+  }
+
+  .motion-ticker .ticker-edge {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ticker .ticker-viewport {
+    overflow-x: auto;
+  }
+
+  .motion-ticker .ticker-track {
+    animation: none;
+    transform: none;
+  }
+
+  .motion-ticker .ticker-track > li[aria-hidden="true"],
+  .motion-ticker .ticker-edge {
+    display: none;
   }
 }

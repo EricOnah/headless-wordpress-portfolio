@@ -1,0 +1,15 @@
+{
+  "label": "Headless WordPress Portfolio",
+  "name": "Eric Onah",
+  "role": "Full-stack Developer | WordPress | Headless CMS",
+  "description": "WordPress specialist building performant, headless-ready experiences with React and Next.js.",
+  "primary_label": "View projects",
+  "primary_url": "/projects",
+  "secondary_label": "Book a build",
+  "secondary_url": "/contact",
+  "image_alt": "WordPress and Next.js working together for headless builds",
+  "caption_heading": "WordPress + Next.js builds",
+  "caption_body": "Custom themes, REST APIs, performance tuning, security, and SEO.",
+  "signals_heading": "Moving work signals",
+  "signals_items": "Headless launch | Next.js + WordPress checkout tuned for spikes\nSEO uplift | Core Web Vitals green across mobile and desktop\nAPI hardening | Custom endpoints with caching + auth for partners\nEditor flow | Live preview + structured blocks for faster publishing\nPerformance | Edge caching and ISR for sub-second navigation\nSecurity | WAF rules, 2FA, and dependency audits each release"
+}
