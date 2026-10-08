@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { certifications, education } from "@/lib/content";
 
 export const defaultEducationProfile = {
@@ -18,9 +19,8 @@ export async function getEducationProfile(): Promise<EducationProfile> {
     .replace(/\/$/, "").replace(/\/wp-json$/, "");
   if (!base) return defaultEducationProfile;
   try {
-    const response = await fetch(
+    const response = await fetchPortfolioContent(
       base + "/?rest_route=/wp/v2/education-profiles&status=publish&orderby=modified&order=desc&per_page=1",
-      { cache: "no-store", signal: AbortSignal.timeout(5000) },
     );
     if (!response.ok) throw new Error("Education request failed: " + response.status);
     const entries: Array<{ education_data?: Partial<EducationProfile> }> = await response.json();

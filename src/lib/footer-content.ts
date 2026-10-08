@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 export const defaultFooterContent = {
   "name": "Eric Onah",
   "headline": "Full-stack Developer | WordPress | Headless CMS",
@@ -15,9 +16,7 @@ export async function getFooterContent(): Promise<FooterContent> {
     .replace(/\/$/, "").replace(/\/wp-json$/, "");
   if (!base) return defaultFooterContent;
   try {
-    const response = await fetch(base + "/?rest_route=/wp/v2/footer-contents&status=publish&orderby=modified&order=desc&per_page=1", {
-      cache: "no-store", signal: AbortSignal.timeout(5000),
-    });
+    const response = await fetchPortfolioContent(base + "/?rest_route=/wp/v2/footer-contents&status=publish&orderby=modified&order=desc&per_page=1");
     if (!response.ok) throw new Error("Footer request failed: " + response.status);
     const entries: Array<{ footer_data?: Partial<FooterContent> }> = await response.json();
     const fields = entries[0]?.footer_data;

@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 export const defaultExperienceContent = {
   eyebrow: "Experience // production impact",
   heading: "Full-stack and",
@@ -60,7 +61,7 @@ export function experiencePairs(value: string) {
 
 type WpExperience = { id: number; experience_data: Record<string, string> };
 async function fetchExperience(base: string, path: string): Promise<WpExperience[]> {
-  const response = await fetch(`${base}/?rest_route=/wp/v2/${path}`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
+  const response = await fetchPortfolioContent(`${base}/?rest_route=/wp/v2/${path}`);
   if (!response.ok) throw new Error(`Experience request failed: ${response.status}`);
   return response.json();
 }

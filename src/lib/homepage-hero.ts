@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { secureWordPressMediaUrl } from "@/lib/wordpress-media";
 export const defaultHeroContent = {
   "label": "Headless WordPress Portfolio",
@@ -35,9 +36,7 @@ export async function getHeroContent(): Promise<HeroContent> {
     .replace(/\/$/, "").replace(/\/wp-json$/, "");
   if (!base) return defaultHeroContent;
   try {
-    const response = await fetch(base + "/?rest_route=/wp/v2/homepage-heroes&status=publish&orderby=modified&order=desc&per_page=1", {
-      cache: "no-store", signal: AbortSignal.timeout(5000),
-    });
+    const response = await fetchPortfolioContent(base + "/?rest_route=/wp/v2/homepage-heroes&status=publish&orderby=modified&order=desc&per_page=1");
     if (!response.ok) throw new Error("Hero content request failed: " + response.status);
     const entries: Array<{ hero_data?: Partial<HeroContent> }> = await response.json();
     const fields = entries[0]?.hero_data;

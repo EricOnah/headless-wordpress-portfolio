@@ -1,3 +1,4 @@
+import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { secureWordPressMediaUrl } from "@/lib/wordpress-media";
 export type ProfilePicture = { url: string; alt: string; name: string; headline: string };
 
@@ -15,9 +16,8 @@ export async function getProfilePicture(): Promise<ProfilePicture> {
   if (!base) return fallback;
 
   try {
-    const response = await fetch(
+    const response = await fetchPortfolioContent(
       `${base}/?rest_route=/wp/v2/profile-pictures&status=publish&orderby=modified&order=desc&per_page=1`,
-      { cache: "no-store", signal: AbortSignal.timeout(5000) },
     );
     if (!response.ok) throw new Error(`Profile picture request failed: ${response.status}`);
     const entries: Array<{
