@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "./custom.css";
 import { Navbar } from "@/components/navbar";
 import { getProfilePicture } from "@/lib/profile-picture";
 import { Footer } from "@/components/footer";
 
-const sans = Plus_Jakarta_Sans({
+const sans = localFont({
+  src: "../../public/fonts/plus-jakarta-sans-latin-wght-normal.woff2",
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "200 800",
   display: "swap",
 });
 
-const display = Space_Grotesk({
+const display = localFont({
+  src: "../../public/fonts/space-grotesk-latin-wght-normal.woff2",
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "300 700",
   display: "swap",
 });
 

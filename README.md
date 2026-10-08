@@ -27,7 +27,7 @@ A Next.js + React portfolio wired for headless WordPress. It includes a Composer
    npm run build
    npm start
    ```
-   The build script uses Next.js's supported Webpack option to avoid the Turbopack Google Fonts compilation error. TypeScript checks remain enabled.
+   The build script uses Next.js's supported Webpack option. Plus Jakarta Sans and Space Grotesk are bundled locally in `public/fonts/` (Fontsource variable packages, version 5.3.0, with their OFL licenses), so builds do not depend on Google Fonts requests. TypeScript checks remain enabled.
 
 ### How WordPress data is used
 - `src/lib/wordpress.ts` fetches posts from `wp-json/wp/v2/posts?status=publish&_embed=1` and normalizes title, excerpt, content, featured media, and tags.

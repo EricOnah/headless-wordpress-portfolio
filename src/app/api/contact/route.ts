@@ -19,8 +19,8 @@ function buildTransport() {
       greetingTimeout: 8_000,
       socketTimeout: 12_000,
       tls: { minVersion: "TLSv1.2" },
-      logger: true,
-      debug: true,
+      logger: false,
+      debug: false,
     };
     return {
       transport: nodemailer.createTransport(options),
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
       });
       console.log("[contact form] email sent");
     } else {
-      console.warn("[contact form] SMTP missing, logging instead", { meta, name, email, projectType, details });
+      console.warn("[contact form] SMTP missing", meta);
       return new Response(JSON.stringify({ ok: false, error: "SMTP not configured", meta }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
