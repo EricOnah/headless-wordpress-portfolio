@@ -3,15 +3,24 @@
 import { FormEvent, useState } from "react";
 import { ProjectTypeSelect } from "./project-type-select";
 import { person } from "@/lib/content";
+import { ContactSecurityCheck } from "./contact-security-check";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [securityAttempt, setSecurityAttempt] = useState(0);
+  const requiresSecurityCheck = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (requiresSecurityCheck && !turnstileToken) {
+      setStatus("error");
+      setMessage("Please complete the security check before sending.");
+      return;
+    }
     setStatus("loading");
     setMessage(null);
 
@@ -23,6 +32,8 @@ export function ContactForm() {
       email: String(formData.get("email") || "").trim(),
       projectType: String(formData.get("projectType") || "").trim(),
       details: String(formData.get("details") || "").trim(),
+      companyWebsite: String(formData.get("companyWebsite") || ""),
+      turnstileToken,
     };
 
     try {
@@ -35,17 +46,20 @@ export function ContactForm() {
       const data = await response.json();
 
       if (!response.ok || !data?.ok) {
-        const reason = data?.error || "Unable to send message";
-        throw new Error(reason);
+        setStatus("error");
+        setMessage(typeof data?.error === "string" ? data.error : "Unable to send message. Please try again.");
+        return;
       }
 
       setStatus("success");
       setMessage("Thanks! Your message was sent. I’ll reply soon.");
       form.reset();
-    } catch (error) {
-      console.error(error);
+    } catch {
       setStatus("error");
       setMessage("Something went wrong. Please email me directly.");
+    } finally {
+      setTurnstileToken("");
+      setSecurityAttempt(value => value + 1);
     }
   }
 
@@ -56,6 +70,12 @@ export function ContactForm() {
       aria-label="Send a message"
       onSubmit={handleSubmit}
     >
+      <div className="hidden" aria-hidden="true">
+        <label>
+          Leave this field empty
+          <input name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2 text-sm text-slate-200/90">
           Full name
@@ -66,6 +86,7 @@ export function ContactForm() {
             name="name"
             autoComplete="name"
             type="text"
+            maxLength={100}
           />
         </label>
         <label className="flex flex-col gap-2 text-sm text-slate-200/90">
@@ -77,6 +98,7 @@ export function ContactForm() {
             name="email"
             autoComplete="email"
             type="email"
+            maxLength={254}
           />
         </label>
       </div>
@@ -93,9 +115,11 @@ export function ContactForm() {
           placeholder="Timeline, goals, required integrations..."
           required
           name="details"
+          maxLength={5000}
         />
       </label>
 
+      <ContactSecurityCheck key={securityAttempt} onToken={setTurnstileToken} />
       <button
         className="btn-white-dark w-full justify-center disabled:opacity-70"
         type="submit"

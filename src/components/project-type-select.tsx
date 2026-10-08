@@ -1,16 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { CONTACT_PROJECT_TYPES } from "@/lib/contact-options";
 
-const OPTIONS = [
-  "I need a website",
-  "WordPress build",
-  "Headless WordPress / Next.js",
-  "Custom plugin or API",
-  "Performance & SEO",
-  "Ongoing maintenance",
-  "I have a position",
-];
+const OPTIONS: readonly string[] = CONTACT_PROJECT_TYPES;
 
 type ProjectTypeSelectProps = {
   name?: string;

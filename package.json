@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:contact": "node --test tests/contact-route.test.mjs"
   },
   "dependencies": {
     "next": "^16.4.0",

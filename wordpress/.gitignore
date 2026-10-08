@@ -1,8 +1,10 @@
-# Application
-web/app/plugins/*
-!web/app/plugins/.gitkeep
-web/app/mu-plugins/*/
+# Installed third-party code (keep custom plugins and themes trackable).
+# Add an explicit directory here when installing another third-party package.
+web/app/plugins/duplicate-post/
+web/app/mu-plugins/bedrock-disallow-indexing/
 web/app/themes/twentytwentyfive/
+
+# Application runtime data
 web/app/upgrade
 web/app/uploads/*
 !web/app/uploads/.gitkeep
