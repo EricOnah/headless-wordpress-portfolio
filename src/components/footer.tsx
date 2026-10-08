@@ -3,7 +3,7 @@ import { getFooterContent } from "@/lib/footer-content";
 
 export async function Footer() {
   const content = await getFooterContent();
-  const linkClass = "px-4 py-2 transition hover:text-emerald-200";
+  const linkClass = "py-2 transition hover:text-emerald-200 sm:px-4";
   return (
     <footer id="footer" className="footer mt-16 border-t border-white/10 bg-black/40">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 lg:flex-row lg:items-center lg:justify-between">
@@ -13,7 +13,7 @@ export async function Footer() {
             {content.headline}
           </p>
         </div>
-        <address id="footer-contact" className="footer-contact flex flex-wrap gap-3 text-sm text-slate-100 not-italic">
+        <address id="footer-contact" className="footer-contact flex flex-col items-start gap-3 text-sm text-slate-100 not-italic sm:flex-row sm:flex-wrap sm:items-center">
           {content.email ? (
             <Link className={linkClass} href={"mailto:" + content.email}>
               {content.email}

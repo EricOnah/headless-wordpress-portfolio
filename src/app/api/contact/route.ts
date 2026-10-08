@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const CONTACT_TO = process.env.CONTACT_TO ?? "ericdavid4u@gmail.com";
 
@@ -9,7 +10,7 @@ function buildTransport() {
   const pass = process.env.SMTP_PASS;
 
   if (host && port && user && pass) {
-    const options = {
+    const options: SMTPTransport.Options = {
       host,
       port,
       secure: port === 465,

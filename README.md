@@ -22,6 +22,13 @@ A Next.js + React portfolio wired for headless WordPress. It includes a Composer
    ```
    Visit `http://localhost:3000`.
 
+4) Build and run the production frontend:
+   ```bash
+   npm run build
+   npm start
+   ```
+   The build script uses Next.js's supported Webpack option to avoid the Turbopack Google Fonts compilation error. TypeScript checks remain enabled.
+
 ### How WordPress data is used
 - `src/lib/wordpress.ts` fetches posts from `wp-json/wp/v2/posts?status=publish&_embed=1` and normalizes title, excerpt, content, featured media, and tags.
 - Projects use the dedicated portfolio_project custom post type through src/lib/portfolio-projects.ts. CV-based fallback projects are used if the CMS is unavailable or no API URL is configured.

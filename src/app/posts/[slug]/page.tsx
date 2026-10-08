@@ -14,7 +14,7 @@ function formatDate(value?: string) {
   });
 }
 
-type PageParams = { slug: string } | Promise<{ slug: string }>;
+type PageParams = Promise<{ slug: string }>;
 
 async function resolveParams(params: PageParams) {
   return await Promise.resolve(params);
