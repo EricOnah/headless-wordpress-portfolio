@@ -60,6 +60,12 @@ yarn-error.log*
 !.env.example
 auth.json
 *service-account*.json
+*service_account*.json
+# Keep locally downloaded Google credentials in these private directories.
+/credentials/
+/private-credentials/
+/wordpress/credentials/
+/wordpress/private-credentials/
 wp-cli.local.yml
 
 # vercel
@@ -70,10 +76,19 @@ wp-cli.local.yml
 next-env.d.ts
 
 # local artifacts
+/cms/subscriptions-setup.md
 *:Zone.Identifier
 *Zone.Identifier
 /tmp/
 /deployment-artifacts/
+# Generated reports and exports from analytics, subscriptions, and local QA.
+/analytics-exports/
+/subscriber-exports/
+/lighthouse-reports/
+/test-results/
+/playwright-report/
+portfolio-subscribers*.csv
+portfolio-analytics*.csv
 *.zip
 *.tar
 *.tar.gz

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async headers() { return [{ source: "/subscribe", headers: [{ key: "Referrer-Policy", value: "no-referrer" }, { key: "X-Robots-Tag", value: "noindex, nofollow" }] }]; },
   outputFileTracingIncludes: { "/*": ["./public/lighthouse-score.json"] },
   allowedDevOrigins: ["snowplow-morality-rise.ngrok-free.dev"],
   images: {

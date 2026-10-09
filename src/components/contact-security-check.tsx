@@ -15,7 +15,7 @@ type Turnstile = {
   remove: (id: string) => void;
 };
 
-export function ContactSecurityCheck({ onToken }: { onToken: (token: string) => void }) {
+export function ContactSecurityCheck({ onToken, action = "contact" }: { onToken: (token: string) => void; action?: "contact" | "subscribe" }) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const container = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
@@ -27,14 +27,14 @@ export function ContactSecurityCheck({ onToken }: { onToken: (token: string) => 
     if (!ready || !siteKey || !container.current || !api) return;
     const widget = api.render(container.current, {
       sitekey: siteKey,
-      action: "contact",
+      action,
       theme: "dark",
       callback: token => { setFailed(false); onToken(token); },
       "expired-callback": () => { onToken(""); setRetry(value => value + 1); },
       "error-callback": () => { onToken(""); setFailed(true); },
     });
     return () => api.remove(widget);
-  }, [ready, siteKey, onToken, retry]);
+  }, [ready, siteKey, onToken, retry, action]);
 
   if (!siteKey) return null;
   return (

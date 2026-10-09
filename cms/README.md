@@ -2,6 +2,8 @@
 
 For frontend GA4 tracking and the administrator visitor-report widget, see [analytics setup](analytics-setup.md).
 
+For confirmed email subscribers and automatic new-post emails, see [subscription setup](subscriptions-setup.md).
+
 WordPress uses the repository's existing Git history alongside the Next.js frontend. Do not initialize a separate repository inside `wordpress/`.
 
 ## Files to maintain
