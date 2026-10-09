@@ -1,5 +1,7 @@
 # WordPress source control
 
+For frontend GA4 tracking and the administrator visitor-report widget, see [analytics setup](analytics-setup.md).
+
 WordPress uses the repository's existing Git history alongside the Next.js frontend. Do not initialize a separate repository inside `wordpress/`.
 
 ## Files to maintain

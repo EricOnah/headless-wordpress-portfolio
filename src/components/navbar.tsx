@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./navbar.css";
 import type { ProfilePicture } from "@/lib/profile-picture";
+import { trackPortfolioEvent } from "@/lib/analytics";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -62,6 +63,7 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
 
           <Link
             href="https://wa.link/eptfzc"
+            onClick={() => trackPortfolioEvent("lets_talk_click", "desktop_header")}
         target="_blank"
         rel="noopener noreferrer"
             className="hidden md:inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/30 hover:bg-white/10"
@@ -116,6 +118,7 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
 
       <Link
         href="https://wa.link/eptfzc"
+        onClick={() => trackPortfolioEvent("lets_talk_click", "mobile_floating")}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-4 z-50 inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-500/20 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_25px_70px_-50px_rgba(16,185,129,0.9)] backdrop-blur transition hover:border-emerald-200 hover:bg-emerald-500/30 md:hidden"
