@@ -52,15 +52,39 @@ function portfolio_analytics_token($credentials) {
     return $data['access_token'];
 }
 
+function portfolio_analytics_date_range($query = null) {
+    $query = $query ?? $_GET;
+    if (!isset($query['portfolio_ga_start']) && !isset($query['portfolio_ga_end'])) {
+        return ['startDate' => '28daysAgo', 'endDate' => 'yesterday'];
+    }
+    $dates = [];
+    foreach (['portfolio_ga_start' => 'startDate', 'portfolio_ga_end' => 'endDate'] as $field => $key) {
+        $value = $query[$field] ?? '';
+        if (!is_string($value)) return new WP_Error('analytics_dates', 'Choose valid start and end dates.');
+        $value = wp_unslash($value);
+        if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value, $parts)
+            || !checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+            return new WP_Error('analytics_dates', 'Choose valid start and end dates.');
+        }
+        $dates[$key] = $value;
+    }
+    if ($dates['startDate'] > $dates['endDate']) {
+        return new WP_Error('analytics_dates', 'The start date must be on or before the end date.');
+    }
+    return $dates;
+}
+
 function portfolio_analytics_reports() {
     if (!current_user_can('manage_options')) return new WP_Error('analytics_access', 'Administrator access is required.');
+    $range = portfolio_analytics_date_range();
+    if (is_wp_error($range)) return $range;
     $property = (string) getenv('GA4_PROPERTY_ID');
     if (!preg_match('/^[1-9][0-9]*$/', $property)) {
         return new WP_Error('analytics_config', 'Set GA4_PROPERTY_ID to the numeric ID from Google Analytics → Admin → Property details. The G- measurement ID is not the property ID.');
     }
     $credentials = portfolio_analytics_credentials();
     if (is_wp_error($credentials)) return $credentials;
-    $cache_key = 'portfolio_ga_report_' . hash('sha256', $property . $credentials['client_email'] . $credentials['private_key']);
+    $cache_key = 'portfolio_ga_report_' . hash('sha256', $property . $credentials['client_email'] . $credentials['private_key'] . wp_json_encode($range) . wp_date('Y-m-d'));
     $cached = get_transient($cache_key);
     if ($cached !== false) {
         return isset($cached['error']) ? new WP_Error('analytics_api', $cached['error']) : $cached;
@@ -71,7 +95,7 @@ function portfolio_analytics_reports() {
         return $token;
     }
     $filter = ['filter' => ['fieldName' => 'hostName', 'inListFilter' => ['values' => ['ericonah.online', 'www.ericonah.online']]]];
-    $base = ['dateRanges' => [['startDate' => '28daysAgo', 'endDate' => 'yesterday']], 'dimensionFilter' => $filter];
+    $base = ['dateRanges' => [$range], 'dimensionFilter' => $filter];
     $requests = [$base + ['metrics' => array_map(function ($name) { return ['name' => $name]; }, ['totalUsers', 'sessions', 'screenPageViews'])]];
     foreach (['pagePath', 'sessionDefaultChannelGroup', 'country', 'deviceCategory'] as $dimension) {
         $metric = $dimension === 'pagePath' ? 'screenPageViews' : 'sessions';
@@ -101,12 +125,24 @@ function portfolio_analytics_reports() {
 
 function portfolio_analytics_widget() {
     if (!current_user_can('manage_options')) return;
+    $range = portfolio_analytics_date_range();
+    $today = current_datetime();
+    $default_start = $today->modify('-28 days')->format('Y-m-d');
+    $default_end = $today->modify('-1 day')->format('Y-m-d');
+    $start = !is_wp_error($range) && $range['startDate'] !== '28daysAgo' ? $range['startDate'] : $default_start;
+    $end = !is_wp_error($range) && $range['endDate'] !== 'yesterday' ? $range['endDate'] : $default_end;
+    echo '<form method="get" action="' . esc_url(admin_url('index.php')) . '" style="display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:16px">';
+    echo '<label for="portfolio-ga-start">From<br><input type="date" id="portfolio-ga-start" name="portfolio_ga_start" value="' . esc_attr($start) . '" required></label>';
+    echo '<label for="portfolio-ga-end">To<br><input type="date" id="portfolio-ga-end" name="portfolio_ga_end" value="' . esc_attr($end) . '" required></label>';
+    echo '<button type="submit" class="button button-primary">Apply dates</button><a class="button" href="' . esc_url(admin_url('index.php')) . '">Reset</a></form>';
+    echo '<p class="description">Choose the same date in both fields to check one day. Dates are inclusive and use the GA4 property time zone. Today’s data may be incomplete or delayed.</p>';
     $result = portfolio_analytics_reports();
     if (is_wp_error($result)) {
         echo '<p>' . esc_html($result->get_error_message()) . '</p>';
         return;
     }
-    echo '<p><strong>ericonah.online</strong> · Last 28 complete days · GA4 property time zone</p>';
+    $label = $range['startDate'] === '28daysAgo' ? 'Last 28 complete days' : $range['startDate'] . ' to ' . $range['endDate'];
+    echo '<p><strong>ericonah.online</strong> · ' . esc_html($label) . ' · GA4 property time zone</p>';
     $values = $result['reports'][0]['rows'][0]['metricValues'] ?? [];
     if (!$values) echo '<p>No visitor data is available yet. Verify frontend tracking in GA4 Realtime; processed reports can take 24–48 hours.</p>';
     echo '<div style="display:flex;gap:24px;flex-wrap:wrap">';
