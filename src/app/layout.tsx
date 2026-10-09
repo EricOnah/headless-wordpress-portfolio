@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { HeaderSkeleton } from "@/components/page-skeleton";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./custom.css";
@@ -35,18 +37,21 @@ export const metadata: Metadata = {
     "Explore the portfolio of Eric Onah, a Full-Stack Developer with 8+ years of experience in React, Next.js, WordPress, Shopify, and custom web applications.",
 };
 
-export default async function RootLayout({
+async function SiteNavigation() {
+  const profilePicture = await getProfilePicture();
+  return <Navbar profilePicture={profilePicture} />;
+}
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const profilePicture = await getProfilePicture();
-
   return (
     <html lang="en">
       <body className={bodyClass}>
         <a href="#main-content" className="skip-link">Skip to main content</a>
-        <Navbar profilePicture={profilePicture} />
+        <Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense>
         {children}
         <Footer />
         {process.env.NODE_ENV === "production" && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production") ? (
