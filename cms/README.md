@@ -45,3 +45,9 @@ bash cms/install-mu-plugins.sh
 ```
 
 Then deploy the matching frontend commit to Vercel. No content-cache invalidation or rebuild is needed for subsequent WordPress content edits. An already open page still needs a reload, as before.
+
+## Public CMS redirect
+
+`portfolio-frontend-redirect.php` redirects public GET/HEAD pages on `cms.ericonah.online` to `PORTFOLIO_FRONTEND_URL` (default `https://ericonah.online/`) with a non-cached 302 response. Install it with the same MU-plugin deployment command above. Local WordPress is unchanged.
+
+Keep `WP_HOME` and `WP_SITEURL` pointing at the CMS; the dashboard stays at `https://cms.ericonah.online/wp/wp-admin/`. Login, REST API (including `?rest_route=`), cron, admin actions, and media URLs remain available. Public CMS URLs redirect to the frontend homepage; query parameters are not forwarded.
