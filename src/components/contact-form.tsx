@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { ProjectTypeSelect } from "./project-type-select";
 import { person } from "@/lib/content";
 import { ContactSecurityCheck } from "./contact-security-check";
+import { trackPortfolioEvent } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -52,6 +53,7 @@ export function ContactForm() {
       }
 
       setStatus("success");
+      if (!payload.companyWebsite) trackPortfolioEvent("generate_lead");
       setMessage("Thanks! Your message was sent. I’ll reply soon.");
       form.reset();
     } catch {

@@ -59,6 +59,7 @@ yarn-error.log*
 .env*
 !.env.example
 auth.json
+*service-account*.json
 wp-cli.local.yml
 
 # vercel
