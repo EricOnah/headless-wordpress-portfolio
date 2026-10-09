@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/update-lighthouse.mjs",
+    "lighthouse:update": "node --env-file-if-exists=.env.local scripts/update-lighthouse.mjs --refresh",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",

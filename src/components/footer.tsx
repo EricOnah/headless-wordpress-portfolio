@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LighthouseScores } from "@/components/lighthouse-scores";
 import { getFooterContent } from "@/lib/footer-content";
 
 export async function Footer() {
@@ -36,6 +37,7 @@ export async function Footer() {
           ) : null}
         </address>
       </div>
+      <LighthouseScores />
     </footer>
   );
 }

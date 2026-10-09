@@ -237,6 +237,14 @@ Local WordPress uploads are served through /api/wordpress-media/year/month/file 
 
 The external URL stays available while this computer, the dev server, DDEV, and the ngrok tunnel remain running.
 
+## Footer Lighthouse scores
+
+The footer shows homepage Lighthouse scores from Google's PageSpeed Insights API: desktop scores at viewport widths of 768px and above, and mobile scores below 768px. Production builds audit both strategies, with separate dates and matching report links. Add `PAGESPEED_API_KEY` to Vercel's Production environment and enable the PageSpeed Insights API in the corresponding Google Cloud project. Restrict the key to that API. `LIGHTHOUSE_SITE_URL` defaults to `https://ericonah.online/`. The key is used only by the build script and is never included in the report or browser code.
+
+`npm run build` runs the audit before building production deployments. It audits the currently live homepage, so the timestamped scores describe the version live before that deployment, rather than guaranteeing the score of the new code. Redeploy after a site change is live to refresh its scores. No API audit runs during a visitor's page load; WordPress fetching remains fresh. Audit failures do not block deployment, and missing scores are shown as a PageSpeed Insights link instead of invented values. A previous report is retained only if one exists in the build workspace; a clean build has no previous report.
+
+For a local refresh, put the key in `.env.local` and run `npm run lighthouse:update`. The generated `public/lighthouse-score.json` is ignored by Git and bundled with the deployment. Preview builds do not request an audit. Scores are a Lighthouse lab measurement, not real-user Core Web Vitals.
+
 ## Contact form spam protection
 
 The Next.js `/api/contact` endpoint validates string fields, limits the JSON request to 32 KiB (including streamed bodies), limits names to 100 characters, email addresses to 254, and messages to 5,000. Project types must match the form's options. Cross-origin browser submissions are rejected; this is not a bot identity check. A hidden honeypot accepts bot-filled requests without sending email. Email is plain text with a fixed recipient and structured sender/reply-to addresses. Transport details and submitted content are not returned in errors or logged by the route.

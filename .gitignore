@@ -19,6 +19,7 @@
 
 # production
 /build
+/public/lighthouse-score.json
 
 # wordpress (bedrock)
 /wordpress/vendor/

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: { "/*": ["./public/lighthouse-score.json"] },
   allowedDevOrigins: ["snowplow-morality-rise.ngrok-free.dev"],
   images: {
     remotePatterns: [
