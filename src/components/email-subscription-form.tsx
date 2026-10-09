@@ -35,7 +35,7 @@ export function EmailSubscriptionForm() {
       <div hidden aria-hidden="true"><label>Leave empty<input name="companyWebsite" tabIndex={-1} autoComplete="off" /></label></div>
       <label className="flex items-start gap-3 text-sm text-slate-300"><input name="consent" type="checkbox" required className="mt-1" />I agree to receive an email when Eric Onah publishes a new post.</label>
       <ContactSecurityCheck key={attempt} action="subscribe" onToken={setToken} />
-      <button type="submit" className="btn-white-dark disabled:opacity-60" disabled={busy || Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !token)}>{busy ? "Subscribing…" : "Subscribe by email"}</button>
+      <button type="submit" className="btn-white-dark disabled:opacity-60" disabled={busy || Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !token)}>{busy ? "Subscribing…" : "Subscribe"}</button>
       {message && <p role="status" className="text-sm text-slate-200">{message}</p>}
     </form>
   </section>;
