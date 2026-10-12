@@ -35,6 +35,13 @@ export const metadata: Metadata = {
   title: "Eric Onah | Full-Stack Developer, WordPress & React Specialist",
   description:
     "Explore the portfolio of Eric Onah, a Full-Stack Developer with 8+ years of experience in React, Next.js, WordPress, Shopify, and custom web applications.",
+  openGraph: {
+    title: "Eric Onah | Full-Stack Developer",
+    description:
+      "Explore my portfolio of custom websites, e-commerce solutions, and web applications.",
+    images: ["https://cms.ericonah.online/app/uploads/2026/10/profile-picture.jpg"],
+    url: "https://ericonah.online/",
+  },
 };
 
 async function SiteNavigation() {
