@@ -39,7 +39,7 @@ export const defaultSkillsSection = {
   core_items: "Next.js | App Router\nWordPress | Headless CMS\nTypeScript | Typed interfaces\nTailwind CSS | Design system",
   cta_heading: "Ready to talk about your next build?",
   cta_description: "Available for WordPress projects, headless CMS integrations, and full-stack development.",
-  resume_label: "View technical resume",
+  resume_label: "View my resume",
   contact_label: "Discuss a project",
   contact_url: "/contact",
 };

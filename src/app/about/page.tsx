@@ -29,7 +29,7 @@ export default async function AboutPage() {
           </h1>
             <p className="text-base text-slate-100">{profile.summary_body}</p>
             <p className="text-base text-slate-100">{profile.summary_body2}</p>
-            <div className="flex flex-wrap gap-3">
+            <div className="about-actions flex flex-nowrap items-center gap-2 sm:gap-3">
               <Link href="/contact" className="btn-white-dark">
                 Work together
                 <span aria-hidden>→</span>

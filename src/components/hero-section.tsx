@@ -17,7 +17,7 @@ export function HeroSection({ content }: { content: HeroContent }) {
           </p>
           <p className="text-sm text-slate-200/85">{content.description}</p>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="hero-actions flex flex-nowrap items-center gap-2 sm:gap-3">
           {content.primary_url && content.primary_label ? (
           <Link href={content.primary_url} className="btn-white-dark">
             {content.primary_label}
