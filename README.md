@@ -108,6 +108,8 @@ In the Professional Profile editor, use **Resume → Upload / select resume** to
 
 ### Button and navigation labels
 
+Under **Professional Profiles**, the **About page professional profile** panel controls the About section label, heading, two introduction paragraphs, and contact panel heading. Its introduction is independent of the **Homepage professional profile** panel after you save it. Existing entries initially use their current homepage paragraphs, preserving the About page until its own text is saved. Contact details, portrait, and existing button label fields keep their shared editors. Update the latest published profile and refresh the frontend.
+
 The **Button and navigation labels** panel adds the remaining action labels to their own content sections. Existing hero, resume, contact, filter, and card label fields remain in their original panels.
 
 | WordPress editor | Additional editable labels |
