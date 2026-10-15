@@ -6,18 +6,19 @@
 
 function portfolio_content_collections() {
     return [
+        'header-contents' => ['id', 'button_labels'],
         'profile-pictures' => ['id', 'profile_image', 'profile_identity'],
-        'professional-profiles' => ['id', 'profile'],
+        'professional-profiles' => ['id', 'profile', 'button_labels'],
         'homepage-heroes' => ['id', 'hero_data'],
-        'footer-contents' => ['id', 'footer_data'],
-        'skills-sections' => ['id', 'skills_data'],
+        'footer-contents' => ['id', 'footer_data', 'button_labels'],
+        'skills-sections' => ['id', 'skills_data', 'button_labels'],
         'skill-categories' => ['id', 'skills_data'],
-        'experience-sections' => ['id', 'experience_data'],
+        'experience-sections' => ['id', 'experience_data', 'button_labels'],
         'experience-roles' => ['id', 'experience_data'],
-        'project-sections' => ['id', 'project_data'],
+        'project-sections' => ['id', 'project_data', 'button_labels'],
         'portfolio-projects' => ['id', 'slug', 'project_data'],
         'education-profiles' => ['id', 'education_data'],
-        'contact-pages' => ['id', 'contact_data'],
+        'contact-pages' => ['id', 'contact_data', 'button_labels'],
     ];
 }
 

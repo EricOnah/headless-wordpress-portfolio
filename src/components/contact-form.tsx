@@ -1,5 +1,6 @@
 "use client";
 
+import type { ButtonLabels } from "@/lib/button-labels";
 import { FormEvent, useState } from "react";
 import { ProjectTypeSelect } from "./project-type-select";
 import { person } from "@/lib/content";
@@ -8,7 +9,7 @@ import { trackPortfolioEvent } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export function ContactForm() {
+export function ContactForm({ labels }: { labels: ButtonLabels<"contact"> }) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -127,7 +128,7 @@ export function ContactForm() {
         type="submit"
         disabled={status === "loading"}
       >
-        {status === "loading" ? "Sending..." : "Send message"}
+        {status === "loading" ? labels.sending_label : labels.submit_label}
         <span aria-hidden>→</span>
       </button>
       <p className="text-xs text-slate-300/80">

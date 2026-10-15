@@ -1,5 +1,6 @@
 "use client";
 
+import type { ButtonLabels } from "@/lib/button-labels";
 import { useId, useState } from "react";
 import { parseSkillPairs, type SkillCategory, type SkillIcon, type SkillsSectionContent } from "@/lib/skills";
 import "./skills.css";
@@ -20,7 +21,7 @@ function SkillSymbol({ icon, className = "" }: { icon: SkillIcon | "search" | "c
   return <svg className={className} viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[icon]}</svg>;
 }
 
-export function SkillsExplorer({ content, categories, resumeUrl }: { content: SkillsSectionContent; categories: SkillCategory[]; resumeUrl: string }) {
+export function SkillsExplorer({ content, categories, resumeUrl, labels }: { content: SkillsSectionContent; categories: SkillCategory[]; resumeUrl: string; labels: ButtonLabels<"skills"> }) {
   const id = useId();
   const [active, setActive] = useState<number | "all">("all");
   const [query, setQuery] = useState("");
@@ -53,7 +54,7 @@ export function SkillsExplorer({ content, categories, resumeUrl }: { content: Sk
       </div>
       <div className="skills-controls">
         <div className="skills-filters" role="group" aria-label="Filter skills by category">
-          <button type="button" className="skills-filter" aria-pressed={active === "all"} onClick={() => setActive("all")}>All <span>{total}</span></button>
+          <button type="button" className="skills-filter" aria-pressed={active === "all"} onClick={() => setActive("all")}>{labels.all_label} <span>{total}</span></button>
           {categories.map((category) => <button type="button" className="skills-filter" aria-pressed={active === category.id} key={category.id} onClick={() => setActive(category.id)}>{category.filterLabel} <span>{category.items.length}</span></button>)}
         </div>
         <div className="skills-search"><SkillSymbol icon="search" /><label className="sr-only" htmlFor={`${id}-search`}>Search technologies</label><input id={`${id}-search`} type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={content.search_placeholder} /><span aria-live="polite">{matched}/{total}</span></div>
@@ -74,7 +75,7 @@ export function SkillsExplorer({ content, categories, resumeUrl }: { content: Sk
           );
         })}
       </div>
-      {filtered.length === 0 && <div className="skills-empty" role="status"><p>No skills match your search.</p><button type="button" onClick={() => { setActive("all"); setQuery(""); }}>Clear filters</button></div>}
+      {filtered.length === 0 && <div className="skills-empty" role="status"><p>No skills match your search.</p><button type="button" onClick={() => { setActive("all"); setQuery(""); }}>{labels.clear_filters_label}</button></div>}
       {coreItems.length > 0 && <div id="core-stack" className="core-stack skills-core"><div className="skills-core-copy"><p className="skills-core-label"><SkillSymbol icon="bolt" />{content.core_eyebrow}{content.core_note && <span>{"// "}{content.core_note}</span>}</p><h3>{content.core_heading}</h3><p>{content.core_description}</p></div><ul role="list" className="skills-core-items">{coreItems.map((item, index) => <li key={`${item.label}-${index}`}><SkillSymbol icon={(["terminal", "cms", "code", "code"] as SkillIcon[])[index % 4]} /><strong>{item.label}</strong><span>{item.value}</span></li>)}</ul></div>}
       <div id="skills-cta" className="skills-cta"><div className="skills-icon skills-cta-icon"><SkillSymbol icon="shield" /></div><div className="skills-cta-copy"><h3>{content.cta_heading}</h3><p>{content.cta_description}</p></div><div className="skills-cta-actions">{resumeUrl && <a className="skills-button-primary" href={resumeUrl} target="_blank" rel="noopener noreferrer">{content.resume_label}<SkillSymbol icon="arrow" /></a>}{content.contact_url && <a className="skills-button-secondary" href={content.contact_url}>{content.contact_label}<SkillSymbol icon="arrow" /></a>}</div></div>
     </section>

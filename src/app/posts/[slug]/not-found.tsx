@@ -1,6 +1,8 @@
+import { getButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const labels = await getButtonLabels("posts");
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <main id="main-content" tabIndex={-1} className="post-not-found-page mx-auto flex max-w-3xl flex-col items-start gap-4 px-6 py-20">
@@ -14,7 +16,7 @@ export default function NotFound() {
           className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/30 hover:bg-white/10"
         >
           <span aria-hidden>←</span>
-          Back to posts
+          {labels.not_found_back_label}
         </Link>
       </main>
     </div>

@@ -1,0 +1,58 @@
+{
+  "header": {
+    "home_label": "Home",
+    "about_label": "About",
+    "projects_label": "Projects",
+    "posts_label": "Posts",
+    "contact_label": "Contact",
+    "talk_label": "Let's talk",
+    "open_navigation_label": "Open navigation",
+    "close_navigation_label": "Close navigation",
+    "open_menu_label": "Open menu",
+    "close_menu_label": "Close menu",
+    "skip_label": "Skip to main content"
+  },
+  "profile": {
+    "resume_label": "View resume",
+    "linkedin_label": "LinkedIn",
+    "github_label": "GitHub",
+    "home_project_label": "Start a project",
+    "home_email_label": "Email Eric",
+    "about_contact_label": "Work together",
+    "about_portfolio_label": "View portfolio"
+  },
+  "skills": {
+    "all_label": "All",
+    "clear_filters_label": "Clear filters"
+  },
+  "experience": {
+    "show_all_label": "Show all roles",
+    "show_details_label": "Show details for",
+    "hide_details_label": "Hide details for"
+  },
+  "projects": {
+    "back_home_label": "Back home",
+    "back_projects_label": "All projects",
+    "website_label": "View website",
+    "not_found_back_label": "Back to projects"
+  },
+  "posts": {
+    "article_back_label": "Back",
+    "article_contact_label": "Start a project",
+    "article_portfolio_label": "View portfolio",
+    "not_found_back_label": "Back to posts",
+    "subscribe_label": "Subscribe",
+    "subscribing_label": "Subscribing…",
+    "confirm_label": "Confirm my subscription",
+    "unsubscribe_label": "Unsubscribe me",
+    "subscription_busy_label": "Please wait…",
+    "subscription_back_label": "Back to posts"
+  },
+  "contact": {
+    "submit_label": "Send message",
+    "sending_label": "Sending..."
+  },
+  "footer": {
+    "pagespeed_label": "Check on PageSpeed Insights"
+  }
+}

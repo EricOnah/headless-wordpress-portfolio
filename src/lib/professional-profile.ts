@@ -23,7 +23,7 @@ const fallback: ProfessionalProfile = {
   phone: person.phone,
   linkedin: person.linkedin,
   github: person.github,
-  resume_url: "",
+  resume_url: "/Eric_Onah_Resume_full-stack.pdf",
 };
 
 export async function getProfessionalProfile(): Promise<ProfessionalProfile> {

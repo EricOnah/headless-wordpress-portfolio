@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { getButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { SkillsGrid } from "@/components/skills-grid";
@@ -9,6 +10,7 @@ import { getProfilePicture } from "@/lib/profile-picture";
 export const revalidate = 300;
 
 export default async function AboutPage() {
+  const labels = await getButtonLabels("profile");
   const [profile, profilePicture, educationProfile] = await Promise.all([
     getProfessionalProfile(),
     getProfilePicture(),
@@ -31,14 +33,14 @@ export default async function AboutPage() {
             <p className="text-base text-slate-100">{profile.summary_body2}</p>
             <div className="about-actions flex flex-nowrap items-center gap-2 sm:gap-3">
               <Link href="/contact" className="btn-white-dark">
-                Work together
+                {labels.about_contact_label}
                 <span aria-hidden>→</span>
               </Link>
               <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10"
               >
-                View portfolio
+                {labels.about_portfolio_label}
               </Link>
             </div>
           </div>
@@ -56,11 +58,11 @@ export default async function AboutPage() {
               <p>{profile.phone}</p>
               <div className="mt-2 flex gap-2 text-emerald-100">
                 <Link href={profile.linkedin} target="_blank" rel="noreferrer">
-                  LinkedIn
+                  {labels.linkedin_label}
                 </Link>
                 <span aria-hidden>•</span>
                 <Link href={profile.github} target="_blank" rel="noreferrer">
-                  GitHub
+                  {labels.github_label}
                 </Link>
               </div>
             </address>

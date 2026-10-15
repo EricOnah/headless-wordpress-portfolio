@@ -1,6 +1,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import type { ButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 import { useId, useState } from "react";
 import { EmailSubscriptionForm } from "@/components/email-subscription-form";
@@ -19,7 +20,7 @@ export function PostNoteCard({post,viewLabel}:{post:WordPressArticle;viewLabel:s
   <footer className="posts-note-footer"><ul role="list" className="posts-tags">{(post.tags.length?post.tags:post.categories).map(tag=><li key={tag.id}>{tag.name}</li>)}</ul><Link href={"/posts/"+post.slug} className="posts-view" aria-label={viewLabel+" "+post.title}>{viewLabel} →</Link></footer>
  </article>;
 }
-export function PostsExplorer({posts,section:s,available,initialFilter="all",categoryHeading}:{posts:WordPressArticle[];section:PostsSectionContent;available:boolean;initialFilter?:string;categoryHeading?:string}){
+export function PostsExplorer({posts,section:s,available,initialFilter="all",categoryHeading,labels}:{posts:WordPressArticle[];section:PostsSectionContent;available:boolean;initialFilter?:string;categoryHeading?:string;labels:ButtonLabels<"posts">}){
  const id=useId();
  const [filter,setFilter]=useState(initialFilter);
  const [query,setQuery]=useState("");
@@ -39,7 +40,7 @@ export function PostsExplorer({posts,section:s,available,initialFilter="all",cat
   {recent.length>0&&<section id="latest-posts" className="latest-posts posts-group" aria-labelledby={id + "-latest"}><div className="posts-group-heading"><h2 id={id + "-latest"}><span>{"// Posts"}</span>{s.latest_label}</h2><p>{String(recent.length).padStart(2,"0")} entries</p></div><div className="posts-recent-grid">{recent.map(p=><PostNoteCard key={p.id} post={p} viewLabel={s.view_label}/>)}</div></section>}
   {archived.length>0&&<section id="posts-archive" className="posts-archive posts-group" aria-labelledby={id + "-archive"}><div className="posts-group-heading"><h2 id={id + "-archive"}><span>{"// Archive"}</span>{s.archive_label}</h2><p>{String(archived.length).padStart(2,"0")} entries</p></div><div className="posts-archive-grid">{archived.map(p=><PostNoteCard key={p.id} post={p} viewLabel={s.view_label}/>)}</div></section>}
   {(s.principles||s.principles_heading)&&<section id="publishing-principles" className="publishing-principles posts-principles" aria-labelledby={id + "-principles"}><p className="posts-label">{s.principles_label}</p><h2 id={id + "-principles"}>{s.principles_heading}</h2><p>{s.principles_description}</p><div className="posts-principles-grid">{s.principles.split(/\r?\n/).filter(Boolean).map((line,i)=>{const [title,description,footer]=line.split("|");return <article className="publishing-principle" key={line}><span aria-hidden>{["↻","▦","◉"][i%3]}</span><h3>{title.trim()}</h3><p>{description?.trim()}</p>{footer&&<small>{"// "}{footer.trim()}</small>}</article>;})}</div></section>}
-  <EmailSubscriptionForm />
+  <EmailSubscriptionForm labels={labels} />
   <section id="posts-cta" className="posts-cta" aria-labelledby={id + "-cta"}><div><p className="posts-source"><i/>{s.cta_label}</p><h2 id={id + "-cta"}>{s.cta_heading}</h2><p>{s.cta_description}</p><div className="posts-cta-actions">{s.contact_url&&<Link href={s.contact_url}>{s.contact_label} →</Link>}</div></div><span className="posts-terminal" aria-hidden>❯_</span></section>
  </div>;
 }

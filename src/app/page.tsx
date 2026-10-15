@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { getButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 import { HeroSection } from "@/components/hero-section";
 import { SkillsGrid } from "@/components/skills-grid";
@@ -12,6 +13,7 @@ import { getProfessionalProfile } from "@/lib/professional-profile";
 export const revalidate = 300;
 
 export default async function Home() {
+  const labels = await getButtonLabels("profile");
   const [profile, hero] = await Promise.all([getProfessionalProfile(), getHeroContent()]);
 
   return (
@@ -48,10 +50,10 @@ export default async function Home() {
                 {profile.phone}
               </Link>
               <Link className="block hover:text-emerald-200" href={profile.linkedin} target="_blank" rel="noreferrer">
-                LinkedIn
+                {labels.linkedin_label}
               </Link>
               <Link className="block hover:text-emerald-200" href={profile.github} target="_blank" rel="noreferrer">
-                GitHub
+                {labels.github_label}
               </Link>
             </address>
             {profile.resume_url ? (
@@ -61,7 +63,7 @@ export default async function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  View resume <span aria-hidden>↗</span>
+                  {labels.resume_label} <span aria-hidden>↗</span>
                 </a>
             ) : null}
 
@@ -91,14 +93,14 @@ export default async function Home() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/contact" className="btn-white-dark">
-                Start a project
+                {labels.home_project_label}
                 <span aria-hidden>→</span>
               </Link>
               <Link
                 href={`mailto:${person.email}`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10"
               >
-                Email {person.name.split(" ")[0]}
+                {labels.home_email_label}
               </Link>
             </div>
           </div>

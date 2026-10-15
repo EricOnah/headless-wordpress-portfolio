@@ -1,3 +1,4 @@
+import { getButtonLabels } from "@/lib/button-labels";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -6,6 +7,7 @@ type Strategy = "mobile" | "desktop";
 type Report = { url: string; strategy: Strategy; auditedAt: string; scores: Record<keyof typeof labels, number> };
 
 export async function LighthouseScores() {
+  const labels = await getButtonLabels("footer");
   let reports: Partial<Record<Strategy, Report>> = {};
   try {
     const saved = JSON.parse(await readFile(path.join(process.cwd(), "public/lighthouse-score.json"), "utf8"));
@@ -13,20 +15,20 @@ export async function LighthouseScores() {
   } catch { /* Scores appear after the first successful audit. */ }
   return (
     <div className="mx-auto max-w-6xl border-t border-white/10 px-6 py-6 text-xs text-slate-300">
-      <div className="md:hidden"><ScoreReport strategy="mobile" report={reports.mobile} /></div>
-      <div className="hidden md:block"><ScoreReport strategy="desktop" report={reports.desktop} /></div>
+      <div className="md:hidden"><ScoreReport linkLabel={labels.pagespeed_label} strategy="mobile" report={reports.mobile} /></div>
+      <div className="hidden md:block"><ScoreReport linkLabel={labels.pagespeed_label} strategy="desktop" report={reports.desktop} /></div>
     </div>
   );
 }
 
-function ScoreReport({ strategy, report }: { strategy: Strategy; report?: Report }) {
+function ScoreReport({ strategy, report, linkLabel }: { strategy: Strategy; report?: Report; linkLabel: string }) {
   const site = report?.url || "https://ericonah.online/";
   const link = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(site)}&form_factor=${strategy}`;
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <p className="font-semibold text-slate-100">Lighthouse · {strategy === "desktop" ? "Desktop" : "Mobile"} homepage</p>
-        <a href={link} target="_blank" rel="noopener noreferrer" className="py-2 text-emerald-200 hover:text-emerald-100">Check on PageSpeed Insights ↗</a>
+        <a href={link} target="_blank" rel="noopener noreferrer" className="py-2 text-emerald-200 hover:text-emerald-100">{linkLabel} ↗</a>
       </div>
       {report ? (
         <>
