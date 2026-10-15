@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { getButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublishedArticleBySlug } from "@/lib/wordpress-posts";
@@ -22,6 +23,7 @@ async function resolveParams(params: PageParams) {
 
 export default async function PostDetailPage({ params }: { params: PageParams }) {
   const { slug } = await resolveParams(params);
+  const labels = await getButtonLabels("posts");
   const post = await getPublishedArticleBySlug(slug);
 
   if (!post) {
@@ -56,7 +58,7 @@ export default async function PostDetailPage({ params }: { params: PageParams })
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/30 hover:bg-white/10"
           >
             <span aria-hidden>←</span>
-            Back
+            {labels.article_back_label}
           </Link>
         </header>
 
@@ -95,14 +97,14 @@ export default async function PostDetailPage({ params }: { params: PageParams })
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link href="/contact" className="btn-white-dark">
-              Start a project
+              {labels.article_contact_label}
               <span aria-hidden>→</span>
             </Link>
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/40 hover:bg-white/10"
             >
-              View portfolio
+              {labels.article_portfolio_label}
             </Link>
           </div>
         </aside>

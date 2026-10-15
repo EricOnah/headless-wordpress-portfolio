@@ -1,3 +1,4 @@
+import { getButtonLabels } from "@/lib/button-labels";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { HeaderSkeleton } from "@/components/page-skeleton";
@@ -46,18 +47,19 @@ export const metadata: Metadata = {
 
 async function SiteNavigation() {
   const profilePicture = await getProfilePicture();
-  return <Navbar profilePicture={profilePicture} />;
+  return <Navbar profilePicture={profilePicture} labels={await getButtonLabels("header")} />;
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const labels = await getButtonLabels("header");
   return (
     <html lang="en">
       <body className={bodyClass}>
-        <a href="#main-content" className="skip-link">Skip to main content</a>
+        <a href="#main-content" className="skip-link">{labels.skip_label}</a>
         <Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense>
         {children}
         <Footer />

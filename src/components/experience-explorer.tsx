@@ -1,5 +1,6 @@
 "use client";
 
+import type { ButtonLabels } from "@/lib/button-labels";
 import { useId, useState } from "react";
 import { experienceLines, experiencePairs, type ExperienceContent, type ExperienceRole } from "@/lib/experience";
 import "./experience.css";
@@ -18,7 +19,7 @@ function ExperienceIcon({ icon }: { icon: "check" | "building" | "globe" | "arro
 }
 
 type RoleFilter = "all" | "active" | "contract" | "remote";
-export function ExperienceExplorer({ content, roles, resumeUrl }: { content: ExperienceContent; roles: ExperienceRole[]; resumeUrl: string }) {
+export function ExperienceExplorer({ content, roles, resumeUrl, labels }: { content: ExperienceContent; roles: ExperienceRole[]; resumeUrl: string; labels: ButtonLabels<"experience"> }) {
   const id = useId();
   const [filter, setFilter] = useState<RoleFilter>("all");
   const [collapsed, setCollapsed] = useState<Record<number, boolean>>({});
@@ -47,7 +48,7 @@ export function ExperienceExplorer({ content, roles, resumeUrl }: { content: Exp
           const hasResult = fields.highlight_label || fields.highlight_value || fields.highlight_description || fields.footer_value || percent > 0;
           return (
             <article className={`experience-role ${fields.accent === "cyan" ? "experience-cyan" : ""}`} key={role.id} aria-labelledby={`${id}-role-${role.id}`}>
-              <header className="experience-role-header"><div className="experience-role-title"><div><h3 id={`${id}-role-${role.id}`}>{role.title}</h3>{fields.status && <span className={`experience-status ${fields.active === "1" ? "experience-status-active" : ""}`}><i />{fields.status}</span>}</div><div className="experience-company-row"><span className="experience-company"><ExperienceIcon icon="building" />{fields.company}</span>{fields.engagement && <span className="experience-engagement">{fields.engagement}</span>}{fields.location && <span className="experience-location"><ExperienceIcon icon="globe" />{fields.location}</span>}</div></div><button type="button" className="experience-period" onClick={() => setCollapsed((previous) => ({ ...previous, [role.id]: !previous[role.id] }))} aria-expanded={isOpen} aria-controls={`${id}-details-${role.id}`} aria-label={`${isOpen ? "Hide" : "Show"} details for ${role.title} at ${fields.company}`}><span>{fields.period}</span><span className="experience-chevron">{isOpen ? "⌄" : "›"}</span></button></header>
+              <header className="experience-role-header"><div className="experience-role-title"><div><h3 id={`${id}-role-${role.id}`}>{role.title}</h3>{fields.status && <span className={`experience-status ${fields.active === "1" ? "experience-status-active" : ""}`}><i />{fields.status}</span>}</div><div className="experience-company-row"><span className="experience-company"><ExperienceIcon icon="building" />{fields.company}</span>{fields.engagement && <span className="experience-engagement">{fields.engagement}</span>}{fields.location && <span className="experience-location"><ExperienceIcon icon="globe" />{fields.location}</span>}</div></div><button type="button" className="experience-period" onClick={() => setCollapsed((previous) => ({ ...previous, [role.id]: !previous[role.id] }))} aria-expanded={isOpen} aria-controls={`${id}-details-${role.id}`} aria-label={`${isOpen ? labels.hide_details_label : labels.show_details_label} ${role.title} at ${fields.company}`}><span>{fields.period}</span><span className="experience-chevron">{isOpen ? "⌄" : "›"}</span></button></header>
               <div id={`${id}-details-${role.id}`} hidden={!isOpen}>
                 <div className={`experience-role-content ${hasResult ? "experience-with-result" : ""}`}><div className="experience-narrative">{fields.summary && <p>{fields.summary}</p>}<ul role="list">{experienceLines(fields.achievements).map((achievement, index) => <li key={`${role.id}-${index}`}><ExperienceIcon icon="check" /><span>{achievement}</span></li>)}</ul><ul role="list" className="experience-tags">{experienceLines(fields.tags).map((tag, index) => <li key={`${tag}-${index}`} className={tag.startsWith("*") ? "experience-tag-accent" : ""}>{tag.replace(/^\*\s*/, "")}</li>)}</ul></div>{hasResult && <aside className="experience-result" aria-label={`${fields.company} results`}><div><p className="experience-result-label">{fields.highlight_label}</p><strong>{fields.highlight_value}</strong><p>{fields.highlight_description}</p></div>{(percent > 0 || fields.footer_label || fields.footer_value) && <div className="experience-result-footer">{percent > 0 && <><div className="experience-result-row"><span>{fields.progress_label}</span><span>{fields.progress_value || `${percent}%`}</span></div><div className="experience-progress"><span style={{ width: `${percent}%` }} /></div></>}<div className="experience-result-row"><span>{fields.footer_label}</span><span>{fields.footer_value}</span></div></div>}</aside>}</div>
               </div>
@@ -55,7 +56,7 @@ export function ExperienceExplorer({ content, roles, resumeUrl }: { content: Exp
           );
         })}
       </div>
-      {filtered.length === 0 && <div className="experience-empty" role="status"><p>No published roles in this category.</p><button type="button" onClick={() => setFilter("all")}>Show all roles</button></div>}
+      {filtered.length === 0 && <div className="experience-empty" role="status"><p>No published roles in this category.</p><button type="button" onClick={() => setFilter("all")}>{labels.show_all_label}</button></div>}
       {principles.length > 0 && <div id="experience-methodology" className="experience-methodology"><p className="experience-label">{content.methodology_label}</p><h3>{content.methodology_heading}</h3><div className="experience-principles">{principles.map((principle, index) => <article className="experience-principle" key={`${principle.label}-${index}`}><div className="experience-principle-icon"><ExperienceIcon icon={(["network", "shield", "rocket"] as const)[index % 3]} /></div><h4>{principle.label}</h4><p>{principle.value}{principle.detail && ` | ${principle.detail}`}</p></article>)}</div></div>}
       <div id="experience-cta" className="experience-cta"><div><p className="experience-label">{content.cta_label}</p><h3>{content.cta_heading}</h3><p>{content.cta_description}</p></div><div className="experience-actions">{resumeUrl && <a className="experience-button-primary" href={resumeUrl} target="_blank" rel="noopener noreferrer">{content.resume_label}<ExperienceIcon icon="arrow" /></a>}{content.contact_url && <a className="experience-button-secondary" href={content.contact_url}>{content.contact_label}<ExperienceIcon icon="arrow" /></a>}</div></div>
     </section>

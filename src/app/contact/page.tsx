@@ -1,3 +1,4 @@
+import { getButtonLabels } from "@/lib/button-labels";
 import Link from "next/link";
 import { getContactPageContent } from "@/lib/contact-page";
 import { ContactForm } from "@/components/contact-form";
@@ -23,7 +24,7 @@ export default async function ContactPage() {
         </header>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <ContactForm />
+          <ContactForm labels={await getButtonLabels("contact")} />
 
           <section id="direct-lines" aria-labelledby="direct-lines-heading" className="direct-lines space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.9)]">
             <h2 id="direct-lines-heading" className="text-xs uppercase tracking-[0.3em] text-emerald-200">

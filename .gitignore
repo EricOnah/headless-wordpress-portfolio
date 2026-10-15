@@ -30,6 +30,7 @@
 # Composer-installed MU plugin loader; custom plugin sources live in cms/mu-plugins.
 /wordpress/web/app/mu-plugins/bedrock-autoloader.php
 /wordpress/web/app/mu-plugins/portfolio-*.php
+/wordpress/web/app/mu-plugins/portfolio-button-labels.json
 # Legacy standard WordPress files alongside the active Bedrock installation.
 /wordpress/wp-admin/
 /wordpress/wp-content/

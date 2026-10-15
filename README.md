@@ -104,6 +104,26 @@ In the Professional Profile editor, use **Resume → Upload / select resume** to
 - Each category has a short filter label, subtitle, description, icon, accent color, optional proficiency meter, optional highlights (`Label | Value` per line), and footer text. A percentage of `0` hides the proficiency meter. The wide-card option spans two columns on desktop.
 - Open **Skills → Section Content → Portfolio skills section** to edit the introduction, status labels, search placeholder, core stack, and callout. Core stack items use `Technology | Subtitle`, one per line.
 - The callout uses the resume already selected in **Professional Profiles**. Its other button defaults to `/contact`.
+- Edit the skills resume button text under **Skills → Section Content → Resume button label**. Edit the projects resume button text under **Projects → Section Content → Resume button label**; this controls both the homepage projects callout and the Projects page. Click **Update**, then refresh the frontend. Saved labels are displayed as entered; “View my resume” is the frontend fallback when CMS content is unavailable.
+
+### Button and navigation labels
+
+The **Button and navigation labels** panel adds the remaining action labels to their own content sections. Existing hero, resume, contact, filter, and card label fields remain in their original panels.
+
+| WordPress editor | Additional editable labels |
+| --- | --- |
+| Header | Desktop/mobile navigation, Let's talk, open/close menu labels, skip link |
+| Professional Profiles | Homepage resume/social links, homepage contact callout buttons, About page buttons/social links |
+| Skills → Section Content | All, Clear filters |
+| Experience → Section Content | Show all roles, show/hide details accessibility labels |
+| Projects → Section Content | Back home, All projects, View website, missing-project return link |
+| Posts → Page Content | Article back/contact/portfolio buttons, missing-post return link, email signup/confirmation/unsubscribe buttons and loading states |
+| Contact | Send message, Sending... |
+| Footer | PageSpeed Insights link |
+
+Open the latest published entry, edit the labels, click **Update**, then refresh the site. For the new Header section, add and publish a Header Content entry first. Empty new label fields retain their original wording. Only button text changes; URLs, form actions, and subscription behavior are unchanged.
+
+Run `bash cms/install-mu-plugins.sh` to install the backend changes locally. For a separately hosted WordPress instance, deploy `portfolio-button-labels.php`, its adjacent `portfolio-button-labels.json`, and the updated `portfolio-content.php` from `cms/mu-plugins/` to its MU plugins directory. Deploy the frontend too. The frontend keeps its defaults until the updated backend is available. The JSON file supplies the same default wording to PHP and TypeScript.
 - Click **Update**, then refresh the homepage or About page. Both use the same CMS content without caching. The most recently modified published Section Content entry is selected.
 - REST endpoints: `/wp-json/wp/v2/skill-categories` and `/wp-json/wp/v2/skills-sections`. Keep `wordpress/web/app/mu-plugins/portfolio-skills.php` when deploying the backend.
 - If the CMS is unavailable, the existing skill lists are used as a fallback. Unpublishing every category intentionally leaves the category grid empty.

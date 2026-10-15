@@ -22,7 +22,7 @@ const getBundle = cache(async (base: string): Promise<ContentBundle | null> => {
 
 const lists = new Set(["skill-categories", "experience-roles", "portfolio-projects"]);
 const supported = new Set([
-  "profile-pictures", "professional-profiles", "homepage-heroes", "footer-contents",
+  "header-contents", "profile-pictures", "professional-profiles", "homepage-heroes", "footer-contents",
   "skills-sections", "skill-categories", "experience-sections", "experience-roles",
   "project-sections", "portfolio-projects", "education-profiles", "contact-pages",
 ]);

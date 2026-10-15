@@ -1,5 +1,6 @@
 "use client";
 
+import type { ButtonLabels } from "@/lib/button-labels";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,14 +9,14 @@ import type { ProfilePicture } from "@/lib/profile-picture";
 import { trackPortfolioEvent } from "@/lib/analytics";
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/posts", label: "Posts" },
-  { href: "/contact", label: "Contact" },
-];
+  { href: "/", key: "home_label" },
+  { href: "/about", key: "about_label" },
+  { href: "/projects", key: "projects_label" },
+  { href: "/posts", key: "posts_label" },
+  { href: "/contact", key: "contact_label" },
+] as const;
 
-export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
+export function Navbar({ profilePicture, labels }: { profilePicture: ProfilePicture; labels: ButtonLabels<"header"> }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isCurrent = (href: string) =>
@@ -49,13 +50,13 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
 
           <nav id="primary-navigation" aria-label="Main navigation" className="primary-navigation hidden md:block">
             <ul role="list" className="flex items-center gap-6 text-sm font-semibold text-slate-100">
-            {navItems.map(({ href, label }) => (
+            {navItems.map(({ href, key }) => (
               <li key={href}><Link
                 className="portfolio-nav-link"
                 href={href}
                 aria-current={isCurrent(href) ? "page" : undefined}
               >
-                {label}
+                {labels[key]}
               </Link></li>
             ))}
             </ul>
@@ -68,7 +69,7 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
         rel="noopener noreferrer"
             className="hidden md:inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/30 hover:bg-white/10"
           >
-            Let&apos;s talk
+            {labels.talk_label}
             <span aria-hidden>→</span>
           </Link>
 
@@ -76,11 +77,11 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
             type="button"
             onClick={toggleMenu}
             className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 p-2 text-white transition hover:border-white/30 hover:bg-white/10 md:hidden"
-            aria-label={open ? "Close navigation" : "Open navigation"}
+            aria-label={open ? labels.close_navigation_label : labels.open_navigation_label}
             aria-expanded={open}
             aria-controls="mobile-navigation"
           >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="sr-only">{open ? labels.close_menu_label : labels.open_menu_label}</span>
             <span aria-hidden="true" className="relative block h-4 w-5">
               <span
                 className="absolute left-0 top-1/2 h-0.5 w-5 bg-white transition-transform duration-200 ease-in-out motion-reduce:transition-none"
@@ -102,14 +103,14 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
 
         <nav hidden={!open} id="mobile-navigation" aria-label="Mobile navigation" className="mobile-navigation md:hidden border-t border-white/10 bg-slate-950/90 backdrop-blur">
             <ul role="list" className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 text-sm font-semibold text-slate-100">
-              {navItems.map(({ href, label }) => (
+              {navItems.map(({ href, key }) => (
                 <li key={href}><Link
                   className="portfolio-nav-link portfolio-nav-link-mobile"
                   href={href}
                   aria-current={isCurrent(href) ? "page" : undefined}
                   onClick={closeMenu}
                 >
-                  {label}
+                  {labels[key]}
                 </Link></li>
               ))}
             </ul>
@@ -123,7 +124,7 @@ export function Navbar({ profilePicture }: { profilePicture: ProfilePicture }) {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-4 z-50 inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-500/20 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_25px_70px_-50px_rgba(16,185,129,0.9)] backdrop-blur transition hover:border-emerald-200 hover:bg-emerald-500/30 md:hidden"
       >
-        Let&apos;s talk
+        {labels.talk_label}
         <span aria-hidden>→</span>
       </Link>
     </>
