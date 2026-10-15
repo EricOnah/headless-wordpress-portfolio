@@ -22,3 +22,16 @@
   outline: 2px solid #0f172a;
   outline-offset: 2px;
 }
+
+@media (max-width: 639px) {
+  .hero-actions > a,
+  .about-actions > a {
+    flex-shrink: 0;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.75rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    white-space: nowrap;
+  }
+}

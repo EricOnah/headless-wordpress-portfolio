@@ -21,7 +21,7 @@ export const defaultProjectsSection = {
   "cta_description": "From custom publishing platforms to complex commerce workflows, let’s plan the right solution for your business.",
   "contact_label": "Discuss a project",
   "contact_url": "/contact",
-  "resume_label": "View technical resume"
+  "resume_label": "View my resume"
 };
 export type ProjectsSectionContent = typeof defaultProjectsSection;
 export const defaultPortfolioProjects:PortfolioProject[] = [
