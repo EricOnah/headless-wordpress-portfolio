@@ -24,13 +24,13 @@ export default async function AboutPage() {
         <section id="about" aria-labelledby="about-heading" className="about grid gap-8 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.8)] lg:grid-cols-5 lg:items-center">
           <div className="lg:col-span-3 space-y-4">
             <p className="text-xs uppercase tracking-[0.3em] text-emerald-200">
-              About Eric Onah
+              {profile.about_label}
             </p>
             <h1 id="about-heading" className="text-4xl font-semibold leading-tight text-white">
-            Full-stack Developer | WordPress | Headless CMS
-          </h1>
-            <p className="text-base text-slate-100">{profile.summary_body}</p>
-            <p className="text-base text-slate-100">{profile.summary_body2}</p>
+              {profile.about_heading}
+            </h1>
+            <p className="text-base text-slate-100">{profile.about_body}</p>
+            <p className="text-base text-slate-100">{profile.about_body2}</p>
             <div className="about-actions flex flex-nowrap items-center gap-2 sm:gap-3">
               <Link href="/contact" className="btn-white-dark">
                 {labels.about_contact_label}
@@ -53,7 +53,7 @@ export default async function AboutPage() {
               />
             </div>
             <address id="about-contact" className="about-contact not-italic mt-4 rounded-2xl border border-white/10 bg-black/50 p-4 text-sm text-slate-200/90">
-              <p className="font-semibold text-white">Contact</p>
+              <p className="font-semibold text-white">{profile.about_contact_heading}</p>
               <p>{profile.email}</p>
               <p>{profile.phone}</p>
               <div className="mt-2 flex gap-2 text-emerald-100">

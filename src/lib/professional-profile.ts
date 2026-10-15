@@ -6,6 +6,11 @@ export type ProfessionalProfile = {
   summary_heading: string;
   summary_body: string;
   summary_body2: string;
+  about_label: string;
+  about_heading: string;
+  about_body: string;
+  about_body2: string;
+  about_contact_heading: string;
   availability: string;
   email: string;
   phone: string;
@@ -18,6 +23,11 @@ const fallback: ProfessionalProfile = {
   summary_heading: "Professional Summary",
   summary_body: summary.body,
   summary_body2: summary.body2,
+  about_label: "About Eric Onah",
+  about_heading: "Full-stack Developer | WordPress | Headless CMS",
+  about_body: summary.body,
+  about_body2: summary.body2,
+  about_contact_heading: "Contact",
   availability: "Available",
   email: person.email,
   phone: person.phone,
@@ -48,6 +58,9 @@ export async function getProfessionalProfile(): Promise<ProfessionalProfile> {
           : value,
       ]),
     ) as ProfessionalProfile;
+    // Older CMS versions keep their current About introduction until its own fields exist.
+    if (typeof profile.about_body !== "string") content.about_body = content.summary_body;
+    if (typeof profile.about_body2 !== "string") content.about_body2 = content.summary_body2;
     content.resume_url = secureWordPressMediaUrl(content.resume_url);
     return content;
   } catch (error) {

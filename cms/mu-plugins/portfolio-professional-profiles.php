@@ -15,8 +15,31 @@ function portfolio_profile_fields() {
         'github' => ['GitHub URL', 'url'],
     ];
 }
+function portfolio_about_profile_fields() {
+    return [
+        'about_label' => ['About section label', 'text'],
+        'about_heading' => ['About heading', 'text'],
+        'about_body' => ['About paragraph 1', 'textarea'],
+        'about_body2' => ['About paragraph 2', 'textarea'],
+        'about_contact_heading' => ['Contact panel heading', 'text'],
+    ];
+}
+function portfolio_about_profile_values($id) {
+    $values = [
+        'about_label' => 'About Eric Onah',
+        'about_heading' => 'Full-stack Developer | WordPress | Headless CMS',
+        'about_body' => get_post_meta($id, 'summary_body', true),
+        'about_body2' => get_post_meta($id, 'summary_body2', true),
+        'about_contact_heading' => 'Contact',
+    ];
+    foreach ($values as $key => $fallback) {
+        $value = metadata_exists('post', $id, $key) ? get_post_meta($id, $key, true) : $fallback;
+        $values[$key] = portfolio_sanitize_profile_value($key, $value);
+    }
+    return $values;
+}
 function portfolio_sanitize_profile_value($key, $value) {
-    $fields = portfolio_profile_fields();
+    $fields = array_merge(portfolio_profile_fields(), portfolio_about_profile_fields());
     $type = $fields[$key][1] ?? 'text';
     if ($type === 'email') return sanitize_email($value);
     if ($type === 'url') {
@@ -57,6 +80,33 @@ add_action('add_meta_boxes_professional_profile', function () {
         }
     }, 'professional_profile', 'normal', 'high');
 });
+add_action('add_meta_boxes_professional_profile', function () {
+    add_meta_box('portfolio-about-profile-details', 'About page professional profile', function ($post) {
+        wp_nonce_field('portfolio_save_about_profile', 'portfolio_about_profile_nonce');
+        echo '<p>Edit the About page introduction independently from the homepage. Existing homepage paragraphs are used until About content is saved. Contact details and the portrait remain shared. Button text is in the Button and navigation labels panel. Click Update, then refresh the About page.</p>';
+        $values = portfolio_about_profile_values($post->ID);
+        foreach (portfolio_about_profile_fields() as $key => [$label, $type]) {
+            echo '<p><label for="profile-' . esc_attr($key) . '"><strong>' . esc_html($label) . '</strong></label><br>';
+            $name = 'portfolio_about_profile[' . $key . ']';
+            if ($type === 'textarea') {
+                echo '<textarea class="widefat" rows="5" id="profile-' . esc_attr($key) . '" name="' . esc_attr($name) . '">' . esc_textarea($values[$key]) . '</textarea>';
+            } else {
+                echo '<input class="widefat" type="text" id="profile-' . esc_attr($key) . '" name="' . esc_attr($name) . '" value="' . esc_attr($values[$key]) . '">';
+            }
+            echo '</p>';
+        }
+    }, 'professional_profile', 'normal', 'high');
+});
+add_action('save_post_professional_profile', function ($post_id) {
+    if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || wp_is_post_revision($post_id) || !current_user_can('edit_post', $post_id)) return;
+    if (!isset($_POST['portfolio_about_profile_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['portfolio_about_profile_nonce'])), 'portfolio_save_about_profile')) return;
+    $values = isset($_POST['portfolio_about_profile']) && is_array($_POST['portfolio_about_profile']) ? wp_unslash($_POST['portfolio_about_profile']) : [];
+    foreach (portfolio_about_profile_fields() as $key => $field) {
+        if (isset($values[$key]) && is_string($values[$key])) {
+            update_post_meta($post_id, $key, portfolio_sanitize_profile_value($key, $values[$key]));
+        }
+    }
+});
 add_action('save_post_professional_profile', function ($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (wp_is_post_revision($post_id) || !current_user_can('edit_post', $post_id)) return;
@@ -80,6 +130,7 @@ add_action('rest_api_init', function () {
             foreach (portfolio_profile_fields() as $key => $field) {
                 $profile[$key] = portfolio_sanitize_profile_value($key, get_post_meta($post['id'], $key, true));
             }
+            $profile = array_merge($profile, portfolio_about_profile_values($post['id']));
             $resume_id = absint(get_post_meta($post['id'], 'resume_attachment_id', true));
             $profile['resume_url'] = portfolio_valid_resume($resume_id) ? (wp_get_attachment_url($resume_id) ?: '') : '';
             return $profile;
