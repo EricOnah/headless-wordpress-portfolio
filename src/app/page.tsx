@@ -91,7 +91,7 @@ export default async function Home() {
             <p className="text-sm text-slate-200/80">
               Let&apos;s scope the right mix of custom themes, APIs, and React for your next launch.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="home-contact-actions flex flex-wrap gap-3">
               <Link href="/contact" className="btn-white-dark">
                 {labels.home_project_label}
                 <span aria-hidden>→</span>
