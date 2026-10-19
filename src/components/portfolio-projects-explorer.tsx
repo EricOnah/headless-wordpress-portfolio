@@ -33,6 +33,6 @@ export function PortfolioProjectsExplorer({projects,section:s,featuredOnly,resum
   </article>)}</div>
   {!shown.length&&<p className="portfolio-empty">No projects published yet.</p>}
   {(s.principles||s.principles_heading)&&<div id="project-principles" className="project-principles portfolio-principles"><p className="portfolio-label">{s.principles_label}</p><h2>{s.principles_heading}</h2><div>{s.principles.split(/\r?\n/).filter(Boolean).map((line,i)=>{const [title,...body]=line.split("|");return <article className="project-principle" key={line}><span aria-hidden>{["↗","▤","◇"][i%3]}</span><h3>{title.trim()}</h3><p>{body.join("|").trim()}</p></article>;})}</div></div>}
-  <div id="projects-cta" className="projects-cta portfolio-cta"><div><p className="portfolio-label">● {s.cta_label}</p><h2>{s.cta_heading}</h2><p>{s.cta_description}</p></div><div className="portfolio-actions">{s.contact_url&&<Link href={s.contact_url}>{s.contact_label} ↗</Link>}{resumeUrl&&<a href={resumeUrl} target="_blank" rel="noopener noreferrer">{s.resume_label} ↗</a>}</div></div>
+  <div id="projects-cta" className="projects-cta portfolio-cta"><div><p className="portfolio-label">● {s.cta_label}</p><h2>{s.cta_heading}</h2><p>{s.cta_description}</p></div><div className="portfolio-actions">{s.contact_url&&<Link href={s.contact_url}>{s.contact_label} ↗</Link>}{resumeUrl&&<a data-resume-link href={resumeUrl} target="_blank" rel="noopener noreferrer">{s.resume_label} ↗</a>}</div></div>
  </section>;
 }
