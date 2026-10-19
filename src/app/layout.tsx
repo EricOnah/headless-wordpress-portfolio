@@ -9,6 +9,8 @@ import { Navbar } from "@/components/navbar";
 import { getProfilePicture } from "@/lib/profile-picture";
 import { Footer } from "@/components/footer";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { ResumeTracker } from "@/components/resume-tracker";
+import { getProfessionalProfile } from "@/lib/professional-profile";
 
 const sans = localFont({
   src: "../../public/fonts/plus-jakarta-sans-latin-wght-normal.woff2",
@@ -50,6 +52,14 @@ async function SiteNavigation() {
   return <Navbar profilePicture={profilePicture} labels={await getButtonLabels("header")} />;
 }
 
+async function ResumeTracking() {
+  const base = (process.env.WORDPRESS_API_URL || process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "")
+    .replace(/\/$/, "").replace(/\/wp-json$/, "");
+  if (!base) return null;
+  const profile = await getProfessionalProfile();
+  return <ResumeTracker endpoint={`${base}/?rest_route=/portfolio/v1/resume-click`} resumeUrl={profile.resume_url} />;
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -63,6 +73,7 @@ export default async function RootLayout({
         <Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense>
         {children}
         <Footer />
+        <Suspense fallback={null}><ResumeTracking /></Suspense>
         {process.env.NODE_ENV === "production" && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production") ? (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-GZV9FHM8XG"} />
         ) : null}

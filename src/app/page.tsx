@@ -59,7 +59,7 @@ export default async function Home() {
             {profile.resume_url ? (
                 <a
                   className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-500/15 px-4 py-2 font-semibold text-emerald-100 transition hover:bg-emerald-500/25"
-                  href={profile.resume_url}
+                  data-resume-link href={profile.resume_url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
