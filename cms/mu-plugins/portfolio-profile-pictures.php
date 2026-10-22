@@ -40,6 +40,7 @@ add_action('rest_api_init', function () {
             }
             return [
                 'url' => $url,
+                'thumbnail_url' => wp_get_attachment_image_url($attachment_id, 'thumbnail') ?: $url,
                 'alt' => get_post_meta($attachment_id, '_wp_attachment_image_alt', true) ?: get_the_title($post['id']),
             ];
         },
@@ -49,6 +50,7 @@ add_action('rest_api_init', function () {
             'context' => ['view', 'edit'],
             'properties' => [
                 'url' => ['type' => 'string', 'format' => 'uri'],
+                'thumbnail_url' => ['type' => 'string', 'format' => 'uri'],
                 'alt' => ['type' => 'string'],
             ],
         ],

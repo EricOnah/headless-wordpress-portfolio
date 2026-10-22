@@ -1,6 +1,6 @@
 import { fetchPortfolioContent } from "@/lib/wordpress-content";
 import { secureWordPressMediaUrl } from "@/lib/wordpress-media";
-export type ProfilePicture = { url: string; alt: string; name: string; headline: string };
+export type ProfilePicture = { url: string; thumbnailUrl?: string; alt: string; name: string; headline: string };
 
 const fallback: ProfilePicture = {
   url: "/profile-picture.jpg",
@@ -21,13 +21,14 @@ export async function getProfilePicture(): Promise<ProfilePicture> {
     );
     if (!response.ok) throw new Error(`Profile picture request failed: ${response.status}`);
     const entries: Array<{
-      profile_image?: { url: string; alt: string } | null;
+      profile_image?: { url: string; thumbnail_url?: string; alt: string } | null;
       profile_identity?: { name?: string; headline?: string };
     }> = await response.json();
     const entry = entries[0];
     if (!entry) return fallback;
     return {
       url: secureWordPressMediaUrl(entry.profile_image?.url || fallback.url),
+      thumbnailUrl: secureWordPressMediaUrl(entry.profile_image?.thumbnail_url || entry.profile_image?.url || fallback.url),
       alt: entry.profile_image?.alt || fallback.alt,
       name: typeof entry.profile_identity?.name === "string" ? entry.profile_identity.name : fallback.name,
       headline: typeof entry.profile_identity?.headline === "string" ? entry.profile_identity.headline : fallback.headline,
