@@ -1,0 +1,18 @@
+# Eric Onah
+
+> Eric Onah is a full-stack developer specializing in WordPress, headless CMS architectures, React, and Next.js. This is his professional portfolio, with project examples, experience, articles, and contact information.
+
+The public portfolio is at https://ericonah.online/. It uses a Next.js frontend with content managed in WordPress. The pages below provide current details about Eric's work and professional background.
+
+## Portfolio
+
+- [Home](https://ericonah.online/): Professional introduction, skills, experience highlights, and selected work.
+- [About](https://ericonah.online/about): Professional background, experience, education, and resume access.
+- [Projects](https://ericonah.online/projects): Project examples and links to individual project details.
+- [Posts](https://ericonah.online/posts): Published articles; follow each article's link for its full content.
+- [Contact](https://ericonah.online/contact): Current contact information and project inquiry form.
+
+## Optional
+
+- [GitHub](https://github.com/EricOnah): Public code repositories.
+- [LinkedIn](https://linkedin.com/in/eric-onah/): Professional profile.
