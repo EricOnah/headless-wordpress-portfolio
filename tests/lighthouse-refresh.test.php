@@ -23,7 +23,25 @@ function wp_remote_get($url, $args) {
     $categories = [];
     foreach (['performance', 'accessibility', 'best-practices', 'seo'] as $name) $categories[$name] = ['score' => .98];
     if ($fail_mobile && $query['strategy'] === 'mobile') $categories['performance']['score'] = null;
-    return ['status' => 200, 'body' => ['lighthouseResult' => ['fetchTime' => '2026-10-22T06:00:00Z', 'categories' => $categories]]];
+    $categories['performance']['auditRefs'] = [
+        ['id' => 'largest-contentful-paint', 'weight' => 25, 'group' => 'metrics'],
+        ['id' => 'render-blocking-insight', 'weight' => 0, 'group' => 'insights'],
+        ['id' => 'screenshot-thumbnails', 'weight' => 0],
+    ];
+    return ['status' => 200, 'body' => ['lighthouseResult' => [
+        'fetchTime' => '2026-10-22T06:00:00Z', 'categories' => $categories,
+        'lighthouseVersion' => '13.0.0', 'requestedUrl' => 'https://example.test/', 'finalUrl' => 'https://example.test/',
+        'environment' => ['benchmarkIndex' => 1200],
+        'configSettings' => ['formFactor' => $query['strategy'], 'throttlingMethod' => 'simulate', 'privateSetting' => 'test-private-key'],
+        'runWarnings' => ['Test warning'],
+        'audits' => [
+            'largest-contentful-paint' => ['title' => 'Largest Contentful Paint', 'score' => .7, 'numericValue' => 3200, 'numericUnit' => 'millisecond', 'displayValue' => '3.2 s'],
+            'cumulative-layout-shift' => ['score' => 1, 'numericValue' => 0, 'numericUnit' => 'unitless'],
+            'render-blocking-insight' => ['title' => 'Render blocking requests', 'score' => 0, 'scoreDisplayMode' => 'metricSavings', 'metricSavings' => ['LCP' => 500], 'details' => ['type' => 'table', 'items' => [['url' => 'https://example.test/app.css']]]],
+            'screenshot-thumbnails' => ['details' => ['type' => 'filmstrip', 'items' => ['large-image-data']]],
+            'unrelated-accessibility-audit' => ['title' => 'Unrelated finding'],
+        ],
+    ]]];
 }
 function register_rest_route($namespace, $path, $args) { $GLOBALS['endpoint'] = $args; }
 class WP_REST_Response {
@@ -44,6 +62,20 @@ $actions['portfolio_lighthouse_refresh']();
 check(count($requests) === 2, 'Both strategies audited');
 check($options['portfolio_lighthouse_desktop']['scores']['performance'] === 98, 'Scores stored as percentages');
 check(!isset($options['portfolio_lighthouse_lock']), 'Lease released');
+$diagnostics = $options['portfolio_lighthouse_desktop']['diagnostics'];
+check($diagnostics['lighthouseVersion'] === '13.0.0', 'Lighthouse version saved');
+check($diagnostics['configSettings']['formFactor'] === 'desktop', 'Audit device saved');
+check($diagnostics['runWarnings'] === ['Test warning'], 'Run warnings saved');
+check($diagnostics['metrics']->{'largest-contentful-paint'}['numericValue'] === 3200, 'Metric value saved');
+check($diagnostics['metrics']->{'largest-contentful-paint'}['weight'] === 25, 'Scoring weight saved');
+check($diagnostics['metrics']->{'cumulative-layout-shift'}['numericValue'] === 0, 'Zero metric retained even without a reference');
+check($diagnostics['audits']->{'render-blocking-insight'}['metricSavings']['LCP'] === 500, 'Estimated savings saved');
+check($diagnostics['audits']->{'render-blocking-insight'}['details']['items'][0]['url'] === 'https://example.test/app.css', 'Affected resources saved');
+check(!isset($diagnostics['audits']->{'screenshot-thumbnails'}), 'Large screenshot data excluded');
+check(!isset($diagnostics['audits']->{'unrelated-accessibility-audit'}), 'Only performance audits included');
+check(strpos(json_encode($diagnostics), 'test-private-key') === false, 'Unselected settings excluded');
+$empty = portfolio_lighthouse_diagnostics([]);
+check(json_encode($empty['metrics']) === '{}' && json_encode($empty['audits']) === '{}', 'Missing optional diagnostics produce empty objects');
 $previous = $options['portfolio_lighthouse_mobile'];
 $options['portfolio_lighthouse_desktop']['auditedAt'] = '2026-10-19T06:00:00Z';
 $fail_mobile = true;
@@ -61,5 +93,6 @@ $actions['rest_api_init']();
 check($endpoint['methods'] === 'GET' && $endpoint['permission_callback'] === '__return_true', 'Read-only public endpoint');
 $response = $endpoint['callback']();
 check(count((array) $response->data['reports']) === 2, 'Both reports exposed');
+check($response->data['reports']->desktop['diagnostics'] == $diagnostics, 'Endpoint exposes diagnostics from saved audit');
 check(strpos(json_encode($response->data), 'test-private-key') === false, 'API key never exposed');
 echo "Lighthouse scheduler, retention, locking and endpoint checks passed.\n";
