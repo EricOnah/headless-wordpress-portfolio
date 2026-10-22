@@ -15,6 +15,44 @@ add_action('init', function () {
     }
 });
 
+function portfolio_lighthouse_diagnostics($result) {
+    $metric_ids = ['first-contentful-paint', 'largest-contentful-paint', 'total-blocking-time', 'cumulative-layout-shift', 'speed-index'];
+    $fields = array_flip(['title', 'description', 'score', 'scoreDisplayMode', 'displayValue',
+        'numericValue', 'numericUnit', 'explanation', 'errorMessage', 'warnings', 'details', 'metricSavings']);
+    $metrics = $audits = [];
+    $refs = $result['categories']['performance']['auditRefs'] ?? [];
+    $reference_by_id = [];
+    foreach ($refs as $ref) {
+        if (is_array($ref) && isset($ref['id'])) $reference_by_id[$ref['id']] = $ref;
+    }
+    // Include the five scoring metrics even if a future API response omits their references.
+    foreach (array_unique(array_merge($metric_ids, array_keys($reference_by_id))) as $id) {
+        // Image data is unnecessary for diagnosing the score and can be very large.
+        if (in_array($id, ['screenshot-thumbnails', 'final-screenshot', 'full-page-screenshot'], true)) continue;
+        $audit = $result['audits'][$id] ?? null;
+        if (!is_array($audit)) continue;
+        $summary = array_intersect_key($audit, $fields);
+        $ref = $reference_by_id[$id] ?? [];
+        foreach (['weight', 'group'] as $field) {
+            if (isset($ref[$field])) $summary[$field] = $ref[$field];
+        }
+        if (in_array($id, $metric_ids, true)) $metrics[$id] = $summary;
+        else $audits[$id] = $summary;
+    }
+    return [
+        'lighthouseVersion' => $result['lighthouseVersion'] ?? null,
+        'requestedUrl' => $result['requestedUrl'] ?? null,
+        'finalUrl' => $result['finalDisplayedUrl'] ?? $result['finalUrl'] ?? null,
+        'environment' => array_intersect_key($result['environment'] ?? [],
+            array_flip(['networkUserAgent', 'hostUserAgent', 'benchmarkIndex'])),
+        'configSettings' => array_intersect_key($result['configSettings'] ?? [],
+            array_flip(['formFactor', 'emulatedFormFactor', 'locale', 'throttlingMethod', 'throttling', 'screenEmulation'])),
+        'runWarnings' => $result['runWarnings'] ?? [],
+        'metrics' => (object) $metrics,
+        'audits' => (object) $audits,
+    ];
+}
+
 function portfolio_lighthouse_audit($strategy, $site, $key) {
     $url = add_query_arg(['url' => $site, 'strategy' => $strategy, 'key' => $key],
         'https://www.googleapis.com/pagespeedonline/v5/runPagespeed');
@@ -31,7 +69,8 @@ function portfolio_lighthouse_audit($strategy, $site, $key) {
         if ((!is_int($score) && !is_float($score)) || !is_finite((float) $score) || $score < 0 || $score > 1) return null;
         $scores[$category] = (int) round($score * 100);
     }
-    return ['url' => $site, 'strategy' => $strategy, 'auditedAt' => $result['fetchTime'], 'scores' => $scores];
+    return ['url' => $site, 'strategy' => $strategy, 'auditedAt' => $result['fetchTime'],
+        'scores' => $scores, 'diagnostics' => portfolio_lighthouse_diagnostics($result)];
 }
 
 add_action('portfolio_lighthouse_refresh', function () {
