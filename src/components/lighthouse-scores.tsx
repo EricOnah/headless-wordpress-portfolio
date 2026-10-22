@@ -1,18 +1,10 @@
 import { getButtonLabels } from "@/lib/button-labels";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
+import { getLighthouseReports, type Report, type Strategy } from "@/lib/lighthouse-reports";
 
 const labels = { performance: "Performance", accessibility: "Accessibility", "best-practices": "Best Practices", seo: "SEO" };
-type Strategy = "mobile" | "desktop";
-type Report = { url: string; strategy: Strategy; auditedAt: string; scores: Record<keyof typeof labels, number> };
 
 export async function LighthouseScores() {
-  const labels = await getButtonLabels("footer");
-  let reports: Partial<Record<Strategy, Report>> = {};
-  try {
-    const saved = JSON.parse(await readFile(path.join(process.cwd(), "public/lighthouse-score.json"), "utf8"));
-    reports = saved.reports || (saved.report ? { [saved.report.strategy]: saved.report } : {});
-  } catch { /* Scores appear after the first successful audit. */ }
+  const [labels, reports] = await Promise.all([getButtonLabels("footer"), getLighthouseReports()]);
   return (
     <div className="mx-auto max-w-6xl border-t border-white/10 px-6 py-6 text-xs text-slate-300">
       <div className="md:hidden"><ScoreReport linkLabel={labels.pagespeed_label} strategy="mobile" report={reports.mobile} /></div>
@@ -39,7 +31,7 @@ function ScoreReport({ strategy, report, linkLabel }: { strategy: Strategy; repo
               return <div key={key} className="flex items-center gap-3 rounded-full border border-white/10 px-4 py-2"><dt>{label}</dt><dd className={`font-semibold ${color}`}>{score}<span className="text-slate-400">/100</span></dd></div>;
             })}
           </dl>
-          <p className="mt-3 text-slate-400">Audited <time dateTime={report.auditedAt}>{new Date(report.auditedAt).toISOString().slice(0, 10)}</time> · Lab scores vary between runs.</p>
+          <p className="mt-3 text-slate-400">Saved audit · <time dateTime={report.auditedAt}>{new Date(report.auditedAt).toISOString().slice(0, 16).replace("T", " ")} UTC</time> · Lab scores vary between runs.</p>
         </>
       ) : null}
     </>
