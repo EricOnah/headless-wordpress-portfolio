@@ -68,6 +68,9 @@ export default async function RootLayout({
   const labels = await getButtonLabels("header");
   return (
     <html lang="en">
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+      </head>
       <body className={bodyClass}>
         <a href="#main-content" className="skip-link">{labels.skip_label}</a>
         <Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense>
