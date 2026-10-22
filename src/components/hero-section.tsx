@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { preload } from "react-dom";
 import type { HeroContent } from "@/lib/homepage-hero";
 
 export function HeroSection({ content }: { content: HeroContent }) {
+  preload(content.image_url, { as: "image", fetchPriority: "high" });
+
   return (
     <section id="hero" aria-labelledby="hero-heading" className="hero grid min-h-[520px] gap-8 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_90px_-60px_rgba(0,0,0,0.8)] lg:min-h-[500px] lg:grid-cols-2 lg:items-center">
       <header id="hero-intro" className="hero-intro space-y-6">
@@ -40,6 +43,8 @@ export function HeroSection({ content }: { content: HeroContent }) {
         <img
           src={content.image_url}
           alt={content.image_alt}
+          loading="eager"
+          fetchPriority="high"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
