@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <main id="main-content" tabIndex={-1} className="home-page mx-auto flex max-w-6xl flex-col gap-12 px-6 py-12">
-        <div className="animate-fade-up">
+        <div>
           <HeroSection content={hero} />
         </div>
 
