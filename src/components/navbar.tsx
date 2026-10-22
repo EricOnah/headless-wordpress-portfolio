@@ -3,7 +3,6 @@
 import type { ButtonLabels } from "@/lib/button-labels";
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import "./navbar.css";
 import type { ProfilePicture } from "@/lib/profile-picture";
@@ -35,13 +34,15 @@ export function Navbar({ profilePicture, labels }: { profilePicture: ProfilePict
               className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-emerald-500/15 ring-1 ring-emerald-300/30 transition hover:ring-emerald-300/60"
               aria-label={"About " + profilePicture.name}
             >
-              <Image
-                src={profilePicture.url}
+              {/* WordPress supplies the thumbnail; keep the original URL for larger portraits. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={profilePicture.thumbnailUrl || profilePicture.url}
                 alt={profilePicture.alt}
                 width={40}
                 height={40}
-                sizes="40px"
                 loading="eager"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </Link>
