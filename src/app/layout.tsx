@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./custom.css";
 import { Navbar } from "@/components/navbar";
+import { SiteHeader } from "@/components/site-header";
 import { getProfilePicture } from "@/lib/profile-picture";
 import { Footer } from "@/components/footer";
 import { GoogleAnalytics } from "@/components/google-analytics";
@@ -73,7 +74,7 @@ export default async function RootLayout({
       </head>
       <body className={bodyClass}>
         <a href="#main-content" className="skip-link">{labels.skip_label}</a>
-        <Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense>
+        <SiteHeader><Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense></SiteHeader>
         {children}
         <Footer />
         <Suspense fallback={null}><ResumeTracking /></Suspense>
