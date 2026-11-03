@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./custom.css";
 import { Navbar } from "@/components/navbar";
-import { SiteHeader } from "@/components/site-header";
+import { SiteChrome } from "@/components/site-chrome";
 import { getProfilePicture } from "@/lib/profile-picture";
 import { Footer } from "@/components/footer";
 import { GoogleAnalytics } from "@/components/google-analytics";
@@ -74,9 +74,9 @@ export default async function RootLayout({
       </head>
       <body className={bodyClass}>
         <a href="#main-content" className="skip-link">{labels.skip_label}</a>
-        <SiteHeader><Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense></SiteHeader>
+        <SiteChrome><Suspense fallback={<HeaderSkeleton />}><SiteNavigation /></Suspense></SiteChrome>
         {children}
-        <Footer />
+        <SiteChrome><Footer /></SiteChrome>
         <Suspense fallback={null}><ResumeTracking /></Suspense>
         {process.env.NODE_ENV === "production" && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production") ? (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-GZV9FHM8XG"} />
