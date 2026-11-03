@@ -16,11 +16,13 @@ export async function LighthouseScores() {
 function ScoreReport({ strategy, report, linkLabel }: { strategy: Strategy; report?: Report; linkLabel: string }) {
   const site = report?.url || "https://ericonah.online/";
   const link = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(site)}&form_factor=${strategy}`;
+  const pagespeedLink = <a href={link} target="_blank" rel="noopener noreferrer" className="py-2 text-emerald-200 hover:text-emerald-100">{linkLabel} ↗</a>;
+  if (strategy === "mobile") return pagespeedLink;
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <p className="font-semibold text-slate-100">Lighthouse · {strategy === "desktop" ? "Desktop" : "Mobile"} homepage</p>
-        <a href={link} target="_blank" rel="noopener noreferrer" className="py-2 text-emerald-200 hover:text-emerald-100">{linkLabel} ↗</a>
+        {pagespeedLink}
       </div>
       {report ? (
         <>
